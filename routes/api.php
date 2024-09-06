@@ -11,3 +11,6 @@ Route::get('/users/{user}', [UserController::class, 'show']);
 
 // POST - http://127.0.0.1:8000/api/users
 Route::post('/users', [UserController::class, 'store']);
+
+// PUT - http://127.0.0.1:8000/api/users/1
+Route::put('/users/{user}', [UserController::class, 'update']);
