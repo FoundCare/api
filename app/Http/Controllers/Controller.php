@@ -17,7 +17,7 @@ abstract class Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function sendResponse(array $data = [null, null, null], int $status = 200): JsonResponse
+    protected function sendResponse(array $data = [null, null, []], int $status = 200): JsonResponse
     {
         $bodyResponse = [
             "status" => $data[0],

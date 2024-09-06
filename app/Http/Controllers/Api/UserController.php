@@ -140,5 +140,35 @@ class UserController extends Controller
             return $this->sendResponse($body, 400);
         }
     }
+
+    /**
+     * Este método faz a exclusão do usuário no banco de dados
+     * 
+     * @param \App\Models\User
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(User $user): JsonResponse
+    {
+        try{
+
+            $user->delete();
+
+            $data = [
+                true,
+                "Usuário deletado com sucesso!",
+                $user
+            ];
+            return $this->sendResponse($data, 200);
+        }
+        catch(Exception $e){
+
+            $data = [
+                false,
+                "Usuário não deletado!",
+                []
+            ];
+            return $this->sendResponse($data, 200);
+        }
+    }
     
 }
