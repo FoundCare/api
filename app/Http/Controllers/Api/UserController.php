@@ -24,13 +24,10 @@ class UserController extends Controller
         $user = User::orderBy('id', 'ASC')->paginate(10);
 
         // Formato da mensagem de resposta
-        $data = [
-            'status' => true,
-            'body' => $user
-        ];
+        $body = [true, "Success", $user];
 
         // Retorna a resposta em formato Json
-        return $this->sendResponse($data, 200);
+        return $this->sendResponse($body, 200);
     }
 
     /**
@@ -38,29 +35,32 @@ class UserController extends Controller
      * 
      * Este método recupera um usuário específico com base no id
      * 
-     * @param User $user - O usuário que será enviado na resposta
-     * @return \Illuminate\Http\JsonResponse
+     * @param App\Models\User;
+     * @return \Illuminate\Http\JsonResponse;
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
-
-        $data = [
-            "status" => true,
-            "body" => $user
+        $body = [
+            true, 
+            "Success", 
+            $user
         ];
 
-        return $this->sendResponse($data, 200);
+        return $this->sendResponse($body, 200);
     }
 
-    public function store(UserStoreRequest $request)
+    /**
+     * Este método é responsável por gravar um usuário no banco
+     * 
+     * @param App\Http\Requests\Api\UserStoreRequest;
+     * @return Illuminate\Http\JsonResponse;
+     */
+    public function store(UserStoreRequest $request): JsonResponse
     {
         // Iniciar transação
         DB::beginTransaction();
 
-        try{
-
-            
-            
+        try{ 
             // Cria o usuário no banco de dados
             $user = User::create([
                 "name" => $request->name,
@@ -71,28 +71,74 @@ class UserController extends Controller
             // Confirma o cadastro no banco de dados
             DB::commit();
 
-            $data = [
-                "status" => true,
-                "message" => "Usuário cadastrado com sucesso!",
-                "body" => $user
+            $body = [
+                true, 
+                "Usuário cadastrado com sucesso!", 
+                $user
             ];
     
-            return $this->sendResponse($data, 201);
+            return $this->sendResponse($body, 201);
 
         } catch(Exception $e){
             // Operação não concluída com êxito
             DB::rollBack();
 
-            $data = [
-                "status" => false,
-                "message" => "Usuário não cadastrado!",
-                "error" => $e->getMessage()
+            $body = [
+                true, 
+                "Usuário não cadastrado", 
+                $user
             ];
-
-            return $this->sendResponse($data, 400);
+    
+            return $this->sendResponse($body, 403);
         }
   
-    }
+    }   
 
+    /**
+     * Este método é responsável por editar um usuário existente no banco de dados 
+     * 
+     * @param UserStoreRequest
+     * @param User
+     * 
+     * @return JsonResponse
+     */
+    public function update(UserStoreRequest $request, User $user): JsonResponse
+    {
+        // Iniciar transação
+        DB::beginTransaction();
+
+        try{
+            // Editar o registro no banco
+            $user->update([
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => $request->password
+            ]);
+
+            // Commita as alterações concluídas
+            DB::commit();
+
+            $body = [
+                true,
+                "Usuário editado com sucesso!",
+                $user
+            ];
+
+            return $this->sendResponse($body, 201);
+
+        } catch(Exception $e){
+
+            // Operação não foi concluída
+            DB::rollBack();
+
+            $body = [
+                false,
+                "Usuário não editado",
+                null
+            ];
+
+            return $this->sendResponse($body, 400);
+        }
+    }
     
 }
