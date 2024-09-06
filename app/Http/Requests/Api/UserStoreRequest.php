@@ -16,6 +16,14 @@ class UserStoreRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Este método é responsável por manipular as falhas de validação e retorna uma resposta JSON com os erros de validação
+     * 
+     * @param Illuminate\Contracts\Validation\Validator;
+     * @throws Illuminate\Http\Exceptions\HttpResponseException;;
+     * @return status 422 - "Unprocessable Entity"
+     *
+     */
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
@@ -42,6 +50,12 @@ class UserStoreRequest extends FormRequest
         ];
     }
     
+    /**
+     * Este método está responsável por enviar as mensagens de erro personalizadas
+     * para os solicitantes da API.
+     * 
+     * @return array<string>;
+     */
     public function messages(): array
     {
         return [
@@ -50,7 +64,8 @@ class UserStoreRequest extends FormRequest
             "email.required" => "Campo email é obrigatório!",
             "email.email" => "Email não é valido!",
             "email.unique" => "Email já existente no banco de dados!",
-            "password.required" => "Campo nome é obrigatório!"
+            "password.required" => "Campo password é obrigatório!",
+            "password.min" => "Campo senha precisa de no mínimo 6 caracteres",
         ];
     }
 }
