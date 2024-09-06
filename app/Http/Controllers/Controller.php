@@ -17,8 +17,14 @@ abstract class Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function sendResponse(array $data, int $status = 200): JsonResponse
+    protected function sendResponse(array $data = [null, null, null], int $status = 200): JsonResponse
     {
-        return response()->json($data, $status);
+        $bodyResponse = [
+            "status" => $data[0],
+            "message" => $data[1],
+            "body" => $data[2],
+        ];
+
+        return response()->json($bodyResponse, $status);
     }
 }
