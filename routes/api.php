@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
 // GET - http://127.0.0.1:8000/api/users?page=1
@@ -17,3 +18,6 @@ Route::put('/users/{user}', [UserController::class, 'update']);
 
 // DELETE - http://127.0.0.1:8000/api/users/1
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+// POST http://127.0.0.1:8000/api/tokens/create
+Route::post('/tokens/create', [TokenController::class, 'create']);
