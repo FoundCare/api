@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,7 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         // Recupera os usuários de forma páginada e ordenados pelo ID
-        $user = User::orderBy('id', 'ASC')->paginate(10);
+        $user = User::orderBy('id', 'ASC')->get();
 
         // Formato da mensagem de resposta
         $body = [true, "Success", $user];
@@ -102,18 +103,69 @@ class UserController extends Controller
      * 
      * @return JsonResponse
      */
-    public function update(UserStoreRequest $request, User $user): JsonResponse
+    public function update(UserEditRequest $request, User $user): JsonResponse
     {
         // Iniciar transação
         DB::beginTransaction();
 
+        $params = $request->collect();
         try{
+            switch($params){
+                case isset($params['name'], $params['email'], $params['password']):
+                    $user->update([
+                        "name" => $request->name,
+                        "email" => $request->email,
+                        "password" => $request->password
+                    ]);
+                    break;
+                case isset($params['name'], $params['email']):
+                    $user->update([
+                        "name" => $request->name,
+                        "email" => $request->email
+                    ]);
+                    break;
+                case isset($params['name'], $params['password']):
+                    $user->update([
+                        "name" => $request->name,
+                        "password" => $request->password
+                    ]);
+                    break;
+                case isset($params['email'], $params['password']):
+                    $user->update([
+                        "email" => $request->email,
+                        "password" => $request->password
+                    ]);
+                    break;
+                case isset($params['name']):
+                    $user->update([
+                        "name" => $request->name
+                    ]);
+                    break;
+                case isset($params['email']):
+                    $user->update([
+                        "email" => $request->email
+                    ]);
+                    break;
+                case isset($params['password']):
+                    $user->update([
+                        "password" => $request->password
+                    ]);
+                    break;
+                default:
+
+                    $body = [
+                        false,
+                        "É necessário informar ao menos um parâmetro para edição",
+                        null
+                    ];
+
+                    return $this->sendResponse($body, 400);
+                    
+                    break;
+                    
+            }   
             // Editar o registro no banco
-            $user->update([
-                "name" => $request->name,
-                "email" => $request->email,
-                "password" => $request->password
-            ]);
+            
 
             // Commita as alterações concluídas
             DB::commit();
@@ -134,7 +186,7 @@ class UserController extends Controller
             $body = [
                 false,
                 "Usuário não editado",
-                null
+                $e
             ];
 
             return $this->sendResponse($body, 400);
