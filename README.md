@@ -49,6 +49,49 @@ http://127.0.0.1:8000/api/users/1
 ```
 <br>
 
+#### POST - Cria um usuário no banco de dados
+Na requisição é necessário informar os seguintes parâmetros no body
+<br>
+
+#### name <br>
+#### email <br>
+#### password <br>
+Caso um dos parâmetros não seja informado o processo não vai funcionar e retornará um erro com status 403. <br>
+
+#### Essa rota é responsável pela criação de um usuário no banco de dados
+```bash
+http://127.0.0.1:8000/api/users
+```
+
+#### PUT - Cria um usuário no banco de dados
+Na requisição é necessário informar os seguintes parâmetros no body
+<br>
+
+#### name <br>
+#### email <br>
+#### password <br>
+Caso um dos parâmetros não seja informado o processo não vai funcionar e retornará um erro com status 403. <br>
+
+#### Essa rota é responsável pela edição de usuários no banco de dados
+```bash
+http://127.0.0.1:8000/api/users/{user}
+```
+#### Paramêtro {user}: id do usuário no banco de dados
+```bash
+http://127.0.0.1:8000/api/users/1
+```
+
+#### DELETE - Deleta um usuário no banco de dados
+
+#### Essa rota é responsável pela exclusão de usuários no banco de dados
+```bash
+http://127.0.0.1:8000/api/users/{user}
+```
+#### Paramêtro {user}: id do usuário no banco de dados
+```bash
+http://127.0.0.1:8000/api/users/1
+```
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
