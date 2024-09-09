@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProfissionalController;
 use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,6 @@ Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
 // POST http://127.0.0.1:8000/api/tokens/create
 Route::post('/tokens/create', [TokenController::class, 'create']);
+
+// GET http://127.0.0.1:8000/api/profissionais
+Route::get('/profissionais', [ProfissionalController::class, 'index']);
