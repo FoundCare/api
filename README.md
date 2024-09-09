@@ -1,6 +1,6 @@
 # API FOUNDCARE
 
-Para rodar esse projeto em sua máquina, são necessários os seguintes pacotes instalados em sua máquina.
+Para rodar esse projeto em sua máquina, são necessários os seguintes pacotes.
 
 ## Requerimentos
 - Gerenciador de dependências <i>Composer</i>

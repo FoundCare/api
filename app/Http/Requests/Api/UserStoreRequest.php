@@ -44,7 +44,7 @@ class UserStoreRequest extends FormRequest
         $this->route('user');
         
         return [
-            'name' => 'required|min:6',
+            'name' => 'required|unique:users|min:6',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|max:255'
         ];
