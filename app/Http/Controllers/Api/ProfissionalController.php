@@ -39,6 +39,13 @@ class ProfissionalController extends Controller
         return $this->sendResponse($body, $status);
     }
 
+    /**
+     * Este método é responsável por trazer apenas um resultado
+     * 
+     * @param string $id -> ID do usuário
+     * 
+     * @return JsonResponse
+     */
     public function show(string $id): JsonResponse
     {
         $profissional = Profissional::where('id', $id)->get();
