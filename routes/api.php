@@ -29,4 +29,7 @@ Route::middleware([CheckContentType::class])->group(function () {
 
     // GET http://127.0.0.1:8000/api/profissionais/{profissional}
     Route::get('/profissionais/{profissional}', [ProfissionalController::class, 'show']);
+
+    // GET http://127.0.0.1:8000/api/profissionais/{profissional}
+    Route::post('/profissionais', [ProfissionalController::class, 'store']);
 });

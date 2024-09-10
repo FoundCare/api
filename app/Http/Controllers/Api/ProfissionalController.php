@@ -68,4 +68,11 @@ class ProfissionalController extends Controller
 
         return $this->sendResponse($body, $status);
     }
+
+    public function store(Request $request)
+    {
+        return [
+            "success" => "it's working!"
+        ];
+    }
 }
