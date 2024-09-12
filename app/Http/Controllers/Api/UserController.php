@@ -107,66 +107,15 @@ class UserController extends Controller
     {
         // Iniciar transação
         DB::beginTransaction();
-
-        $params = $request->collect();
         try{
-            switch($params){
-                case isset($params['name'], $params['email'], $params['password']):
-                    $user->update([
-                        "name" => $request->name,
-                        "email" => $request->email,
-                        "password" => $request->password
-                    ]);
-                    break;
-                case isset($params['name'], $params['email']):
-                    $user->update([
-                        "name" => $request->name,
-                        "email" => $request->email
-                    ]);
-                    break;
-                case isset($params['name'], $params['password']):
-                    $user->update([
-                        "name" => $request->name,
-                        "password" => $request->password
-                    ]);
-                    break;
-                case isset($params['email'], $params['password']):
-                    $user->update([
-                        "email" => $request->email,
-                        "password" => $request->password
-                    ]);
-                    break;
-                case isset($params['name']):
-                    $user->update([
-                        "name" => $request->name
-                    ]);
-                    break;
-                case isset($params['email']):
-                    $user->update([
-                        "email" => $request->email
-                    ]);
-                    break;
-                case isset($params['password']):
-                    $user->update([
-                        "password" => $request->password
-                    ]);
-                    break;
-                default:
-
-                    $body = [
-                        false,
-                        "É necessário informar ao menos um parâmetro para edição",
-                        null
-                    ];
-
-                    return $this->sendResponse($body, 400);
-                    
-                    break;
-                    
-            }   
+           
             // Editar o registro no banco
+            $user->update([
+                "name" => $request->name ? : $user->name,
+                "email" => $request->email ? : $user->email,
+                "password" => $request->password ? : $user->password
+            ]);
             
-
             // Commita as alterações concluídas
             DB::commit();
 
