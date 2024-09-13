@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ProfissionalStoreRequest;
 use App\Models\Profissional;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -71,30 +72,25 @@ class ProfissionalController extends Controller
         return $this->sendResponse($body, $status);
     }
 
-    public function store(Request $request)
+    public function store(ProfissionalStoreRequest $request)
     {
-        /**
-         * {
-         *    "name": "Novo profissional",
-         *    "cpf": "00000000000",
-         *    "email": "jeff@gmail.com",
-         *    "data_nasc": "1999-11-29",
-         *    "logradouro": "Rua dos bobos n°0",
-         *    "bairro": "Diadema",
-         *    "cep": "09970-342",
-         *    "telefone": null,
-         *    "celular": "11988745706",
-         *    "cnpj": "05",
-         *    "razao_social": "FOUNDCARE",
-         *    "coren": "24158767"
-         *}
-         */
         // Iniciar a transação
         DB::beginTransaction();
         dd($request->all());
         try{
             $profissional = Profissional::create([
-                "name" => $request->name
+                "name" => $request->name,
+                "cpf" => $request->cpf,
+                "email" => $request->email,
+                "data_nasc" => $request->data_nasc,
+                "logradouro" => $request->logradouro,
+                "bairro" => $request->bairro,
+                "cep" => $request->cep,
+                "telefone" => $request->telefone,
+                "celular" => $request->celular,
+                "cnpj" => $request->cnpj,
+                "razao_social" => $request->razao_social,
+                "coren" => $request->coren
             ]);
 
         } catch(Exception $e){

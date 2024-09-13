@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Http\Requests\Api;
+
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+class ProfissionalStoreRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Este método é responsável por manipular as falhas de validação e retorna uma resposta JSON com os erros de validação
+     * 
+     * @param Illuminate\Contracts\Validation\Validator;
+     * @throws Illuminate\Http\Exceptions\HttpResponseException;;
+     * @return status 422 - "Unprocessable Entity"
+     *
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status' => false,
+            'erros' => $validator->errors()
+        ], 422));
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    
+    public function rules(): array
+    {
+        return [
+            "name" => [
+                'required',
+                'min:6',
+                'max:200'
+            ],
+            "cpf" => [
+                'required',
+                "unique:profissionais"
+                // adicionar validação CPF
+            ],
+            "email" => [
+                "required",
+                "email",
+                "unique:profissionais"
+            ],
+            "data_nasc" => [
+                "required",
+
+            ],
+            "logradouro" => [
+                "required",
+                "min:10",
+                "max:38"
+            ],
+            "bairro" => [
+                "required",
+                "min:6",
+                "max:20"
+            ],
+            "cep" => [
+                "required",
+                "min:6",
+                "max:9"
+            ],
+            "telefone" => [
+                "nullable",
+                "max:10"
+            ],
+            "celular" => [
+                "required",
+                //adicionar validação celular
+            ],
+            "cnpj" => [
+                "required",
+                "unique:profissionais"
+                // adicionar validação
+            ],
+            "razao_social" => [
+                "required",
+                "min:10",
+                "max:200"
+            ],
+            "coren" => [
+                "required",
+                "unique:profissionais",
+                "min:5",
+                "max:6"
+            ]
+        ];
+    }
+
+    /**
+     * Este método está responsável por enviar as mensagens de erro personalizadas
+     * para os solicitantes da API.
+     * 
+     * @return array<string>;
+     */
+    public function messages(): array
+    {
+        return [
+            "required" => "Campo :attribute é obrigatório!",
+            "unique" => ":attribute já cadastrado na plataforma",
+            "name.min" => "O campo nome precisa de 6 caracteres",
+            "name.max" => "O campo nome só suporta apenas 200 caracteres",
+            "email.email" => "Email não é valido!",
+        ];
+    }
+}
