@@ -59,13 +59,10 @@ class UserStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "Campo nome é obrigatório!",
-            "name.min" => "O campo nome precisa de 6 caracteres",
-            "email.required" => "Campo email é obrigatório!",
+            "required" => "Campo :attribute é obrigatório!",
+            "min" => "O campo :attribute precisa de 6 caracteres",
             "email.email" => "Email não é valido!",
-            "email.unique" => "Email já existente no banco de dados!",
-            "password.required" => "Campo password é obrigatório!",
-            "password.min" => "Campo senha precisa de no mínimo 6 caracteres",
+            "unique" => ":attribute já existente no banco de dados!",
         ];
     }
 }
