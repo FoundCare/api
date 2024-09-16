@@ -179,4 +179,38 @@ class ProfissionalController extends Controller
             return $this->sendResponse($body, 400);
         }
     }
+
+    /**
+     * Este método é responsável por aplicar um softDelete no usuário existente no banco de dados
+     */
+    public function destroy(string $id): JsonResponse
+    {
+        try{
+            $profissional = Profissional::where("id", $id)->first();
+            $status = Response::HTTP_FOUND;
+            $body = [
+                true,
+                "Profissional deletado com sucesso!",
+                $profissional
+            ];
+
+            if(!isset($profissional)){
+                $body[1] = "Profissional não encontrado!";
+            } else {
+                $profissional->delete();
+            }
+
+            return $this->sendResponse($body, $status);
+            
+        } catch(Exception $e){
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $body = [
+                false,
+                "Usuário não deletado!",
+                []
+            ];
+            return $this->sendResponse($body, $status);
+        }
+        
+    }
 }

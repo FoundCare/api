@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([CheckContentType::class])->group(function () {
 
+    /** ROTAS DOS USUÁRIOS */
     // GET - http://127.0.0.1:8000/api/users?page=1
     Route::get('/users', [UserController::class, 'index']);
 
@@ -24,6 +25,8 @@ Route::middleware([CheckContentType::class])->group(function () {
     // DELETE - http://127.0.0.1:8000/api/users/1
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
+    /** ROTAS DO PROFISSIONAL*/
+
     // GET http://127.0.0.1:8000/api/profissionais
     Route::get('/profissionais', [ProfissionalController::class, 'index']);
 
@@ -35,4 +38,7 @@ Route::middleware([CheckContentType::class])->group(function () {
 
     // PATCH http://127.0.0.1:8000/api/profissionais/{profissional}
     Route::patch('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
+
+    // DELETE http://127.0.0.1:8000/api/profissionais/{profissional}
+    Route::delete('/profissionais/{profissional}', [ProfissionalController::class, 'destroy']);
 });
