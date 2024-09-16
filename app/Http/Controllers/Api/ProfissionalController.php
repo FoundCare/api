@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ProfissionalEditRequest;
 use App\Http\Requests\Api\ProfissionalStoreRequest;
 use App\Models\Profissional;
 use Exception;
@@ -52,7 +53,7 @@ class ProfissionalController extends Controller
     public function show(string $id): JsonResponse
     {
         $profissional = Profissional::where('id', $id)->get();
-        $status = Response::HTTP_ACCEPTED;
+        $status = Response::HTTP_FOUND;
 
         if(count($profissional) <= 0){
             $body = [
@@ -72,7 +73,13 @@ class ProfissionalController extends Controller
         return $this->sendResponse($body, $status);
     }
 
-    public function store(ProfissionalStoreRequest $request)
+    /**
+     * Este método é responsável por gravar um profissional no banco
+     * 
+     * @param App\Http\Requests\Api\ProfissionalStoreRequest;
+     * @return Illuminate\Http\JsonResponse;
+     */
+    public function store(ProfissionalStoreRequest $request): JsonResponse
     {
         // Iniciar a transação
         DB::beginTransaction();
@@ -119,5 +126,57 @@ class ProfissionalController extends Controller
         return [
             "success" => "it's working!"
         ];
+    }
+
+    /**
+     * Este método é responsável por editar um usuário existente no banco de dados 
+     * 
+     * @param Profissional
+     * @param ProfissionalEditRequest
+     * 
+     * @return JsonResponse
+     */
+    public function update(ProfissionalEditRequest $request, Profissional $profissional): JsonResponse
+    {
+        // Iniciar transação
+        DB::beginTransaction();
+        try{
+           
+            // Editar o registro no banco
+            $profissional->update([
+                "name" => $request->name ? : $profissional->name,
+                "cpf" => $request->cpf ? : $profissional->cpf,
+                "email" => $request->email ? : $profissional->email,
+                "logradouro" => $request->logradouro ? : $profissional->logradouro,
+                "bairro" => $request->bairro ? : $profissional->bairro,
+                "cep" => $request->cep ? : $profissional->cep,
+                "telefone" => $request->cep ? : $profissional->telefone,
+                "cnpj" => $request->cnpj ? : $profissional->cnpj
+            ]);
+            
+            // Commita as alterações concluídas
+            DB::commit();
+
+            $body = [
+                true,
+                "Usuário editado com sucesso!",
+                $profissional
+            ];
+
+            return $this->sendResponse($body, 201);
+
+        } catch(Exception $e){
+
+            // Operação não foi concluída
+            DB::rollBack();
+
+            $body = [
+                false,
+                "Usuário não editado",
+                $e
+            ];
+
+            return $this->sendResponse($body, 400);
+        }
     }
 }

@@ -81,6 +81,7 @@ class ProfissionalStoreRequest extends FormRequest
             ],
             "celular" => [
                 "required",
+                'unique:profissionais'
                 //adicionar validação celular
             ],
             "cnpj" => [
