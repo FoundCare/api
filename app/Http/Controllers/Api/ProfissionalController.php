@@ -76,7 +76,7 @@ class ProfissionalController extends Controller
     {
         // Iniciar a transação
         DB::beginTransaction();
-        dd($request->all());
+
         try{
             $profissional = Profissional::create([
                 "name" => $request->name,
@@ -93,6 +93,16 @@ class ProfissionalController extends Controller
                 "coren" => $request->coren
             ]);
 
+            DB::commit();
+
+            $body = [
+                true,
+                "Profissional cadastrado!",
+                $profissional
+            ];
+
+            return $this->sendResponse($body, 201);
+
         } catch(Exception $e){
             // Operação não concluída com êxito
             DB::rollBack();
@@ -100,7 +110,7 @@ class ProfissionalController extends Controller
             $body = [
                 false, 
                 "Profissional não cadastrado", 
-                []
+                [$e->getMessage()]
             ];
     
             return $this->sendResponse($body, 403);

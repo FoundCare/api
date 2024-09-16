@@ -58,11 +58,11 @@ class ProfissionalStoreRequest extends FormRequest
             ],
             "data_nasc" => [
                 "required",
-
+                "date_format:Y-m-d"
             ],
             "logradouro" => [
                 "required",
-                "min:10",
+                "min:6",
                 "max:38"
             ],
             "bairro" => [
@@ -97,7 +97,7 @@ class ProfissionalStoreRequest extends FormRequest
                 "required",
                 "unique:profissionais",
                 "min:5",
-                "max:6"
+                "max:10"
             ]
         ];
     }
@@ -112,10 +112,11 @@ class ProfissionalStoreRequest extends FormRequest
     {
         return [
             "required" => "Campo :attribute é obrigatório!",
-            "unique" => ":attribute já cadastrado na plataforma",
-            "name.min" => "O campo nome precisa de 6 caracteres",
-            "name.max" => "O campo nome só suporta apenas 200 caracteres",
+            "unique" => ":attribute já cadastrado na plataforma, revise os dados por favor!",
+            "min" => "O campo :attribute precisa de 6 caracteres",
+            "max" => "O campo :attribute não suporte a quantidade de caracteres informada!",
             "email.email" => "Email não é valido!",
+            "data_nasc.date_format" => "A data precisa estar formatada em Y-m-d"
         ];
     }
 }

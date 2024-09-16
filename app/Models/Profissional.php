@@ -15,5 +15,24 @@ class Profissional extends Model
      * @var string
      */
     protected $table = 'profissionais';
-    
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'cpf',
+        'email',
+        'data_nasc',
+        'logradouro',
+        'bairro',
+        'cep',
+        'celular',
+        'cnpj',
+        'razao_social',
+        'coren'
+    ];
+
 }

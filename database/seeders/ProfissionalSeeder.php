@@ -94,7 +94,7 @@ class ProfissionalSeeder extends Seeder
                 "name" => "Italo",
                 "email" => "j.vitor.moura.37@gmail.com",
                 "cpf" => "47608923895",
-                "data_nasc" => '1999-11-29',
+                "data_nasc" => '29-11-199',
                 "logradouro" => "Rua Inamar N° 25",
                 "bairro" => "Diadema",
                 "cep" => "09970-342",
