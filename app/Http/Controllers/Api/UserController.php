@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
+use App\Models\Contato;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,8 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         // Recupera os usuários de forma páginada e ordenados pelo ID
-        $user = User::orderBy('id', 'ASC')->get();
-
+        $user = User::join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')->get();
+        
         // Formato da mensagem de resposta
         $body = [true, "Success", $user];
 
@@ -41,9 +42,21 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
+        $user = User::find(1)
+                    ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
+                    ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
+                    ->where('id', $user->id)
+                    ->first();
+        
+
         $body = [
             true, 
-            "Success", 
+            "Success",
+            /*[
+                "usuario" => $user,
+                "endereco" => $user->enderecos()->first(),
+                "contato" => $user->contatos()->first()
+            ]*/
             $user
         ];
 
