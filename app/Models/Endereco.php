@@ -18,10 +18,6 @@ class Endereco extends Model
         'estado'
     ];
 
-    protected $hidden = [
-        "id_endereco"
-    ];
-
     /**
      * Relacionamento entre as tabelas
      * 
