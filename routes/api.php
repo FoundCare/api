@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\EnderecoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', [EnderecoController::class, 'index']);
 
 /** ROTAS DOS USUÁRIOS */
 // GET - http://127.0.0.1:8000/api/users?page=1
