@@ -22,13 +22,10 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        // Recupera os usuários de forma páginada e ordenados pelo ID
-        $user = User::join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')->get();
+        $user = User::get();
         
-        // Formato da mensagem de resposta
         $body = [true, "Success", $user];
 
-        // Retorna a resposta em formato Json
         return $this->sendResponse($body, 200);
     }
 
@@ -42,21 +39,11 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        $user = User::find(1)
-                    ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
-                    ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
-                    ->where('id', $user->id)
-                    ->first();
-        
-
+        $user = User::where('id', $user->id);
+    
         $body = [
             true, 
             "Success",
-            /*[
-                "usuario" => $user,
-                "endereco" => $user->enderecos()->first(),
-                "contato" => $user->contatos()->first()
-            ]*/
             $user
         ];
 
@@ -75,7 +62,6 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try{ 
-            // Cria o usuário no banco de dados
             $user = User::create([
                 "name" => $request->name,
                 "email" => $request->email,
@@ -118,18 +104,15 @@ class UserController extends Controller
      */
     public function update(UserEditRequest $request, User $user): JsonResponse
     {
-        // Iniciar transação
         DB::beginTransaction();
         try{
            
-            // Editar o registro no banco
             $user->update([
                 "name" => $request->name ? : $user->name,
                 "email" => $request->email ? : $user->email,
                 "password" => $request->password ? : $user->password
             ]);
             
-            // Commita as alterações concluídas
             DB::commit();
 
             $body = [
@@ -141,8 +124,6 @@ class UserController extends Controller
             return $this->sendResponse($body, 201);
 
         } catch(Exception $e){
-
-            // Operação não foi concluída
             DB::rollBack();
 
             $body = [
@@ -164,9 +145,7 @@ class UserController extends Controller
     public function destroy(User $user): JsonResponse
     {
         try{
-
             $user->delete();
-
             $data = [
                 true,
                 "Usuário deletado com sucesso!",
