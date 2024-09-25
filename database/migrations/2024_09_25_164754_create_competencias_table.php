@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('competencias', function (Blueprint $table) {
             $table->id();
             $table->string('competencia');
+            $table->unsignedBigInteger('profissional_id');
+            $table->foreign('profissional_id')->references('id')->on('profissionais')->onDelete('cascade');
             $table->timestamps();
         });
     }
