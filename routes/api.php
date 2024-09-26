@@ -3,8 +3,10 @@
 use App\Http\Controllers\Api\EnderecoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
+use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('teste-teste', [ExampleController::class, 'teste']);
 Route::get('/test/{id}', [EnderecoController::class, 'show']);
 
 /** ROTAS DOS USUÁRIOS */
