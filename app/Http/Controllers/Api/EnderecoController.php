@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\EnderecoRequest;
 use App\Http\Resources\EnderecoResource;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
+use App\Models\Endereco;
 use Illuminate\Http\Request;
 
 class EnderecoController extends Controller
@@ -19,8 +20,13 @@ class EnderecoController extends Controller
         return $this->enderecoService->show($id);
     }
 
-    public function store(EnderecoRequest $request)
+    public function store(EnderecoRequest $request): EnderecoResource
     {
         return $this->enderecoService->store($request->all());
+    }
+
+    public function update(Request $request, string $id)
+    {
+        return $this->enderecoService->update($request->all(), $id);
     }
 }

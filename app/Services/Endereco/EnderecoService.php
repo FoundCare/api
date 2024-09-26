@@ -55,9 +55,35 @@ class EnderecoService implements EnderecoServiceInterface
         }
     }
 
-    public function update($id)
+    public function update($data, $id)
     {
+        try{
+            DB::beginTransaction();
+
+            $endereco = Endereco::where("id_endereco", $id)->findOrFail($id);
+            dd($endereco);
+            
+            $body = [
+                "logradouro" => $data['logradouro'] ? : $endereco['logradouro'],
+                "bairro" => $data['bairro'] ? : $endereco['bairro'],
+                "cep" => $data['cep'] ? : $endereco['cep'],
+                "cidade" => $data['cidade'] ? : $endereco['cidade'],
+                "estado" => $data['estado'] ? : $endereco['bairro']
+            ];
+            $endereco->update($body);
+
+            DB::commit();
+
+            return new EnderecoResource($endereco);
+
+        } catch(Exception $e){
+            DB::rollBack();
+            $data = [$e->getMessage()];
+            return new EnderecoResource($data);
+        }
+        
     }
+
     public function destroy($id)
     {
     }
