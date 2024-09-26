@@ -18,4 +18,9 @@ class EnderecoController extends Controller
     {
         return $this->enderecoService->show($id);
     }
+
+    public function store(EnderecoRequest $request)
+    {
+        return $this->enderecoService->store($request->all());
+    }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('teste-teste', [ExampleController::class, 'teste']);
-Route::get('/test/{id}', [EnderecoController::class, 'show']);
+Route::post('/test', [EnderecoController::class, 'store']);
 
 /** ROTAS DOS USUÁRIOS */
 // GET - http://127.0.0.1:8000/api/users?page=1

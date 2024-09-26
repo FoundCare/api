@@ -32,7 +32,29 @@ class EnderecoService implements EnderecoServiceInterface
 
     public function store($data)
     {
+        try{
+            DB::beginTransaction();
+
+            $body = [
+                "logradouro" => $data['logradouro'],
+                "bairro" => $data['bairro'],
+                "cep" => $data['cep'],
+                "cidade" => $data['cidade'],
+                "estado" => $data['estado']
+            ];
+            $endereco = Endereco::create($body);
+
+            DB::commit();
+
+            return new EnderecoResource($endereco);
+
+        } catch(Exception $e){
+            DB::rollBack();
+            $data = [$e->getMessage()];
+            return new EnderecoResource($data);
+        }
     }
+
     public function update($id)
     {
     }
