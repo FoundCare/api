@@ -12,4 +12,9 @@ class Competencias extends Model
     protected $fillable = [
         'competencia'
     ];
+
+    public function profissional()
+    {
+        return $this->belongsTo(Profissional::class);
+    }
 }

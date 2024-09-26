@@ -36,4 +36,9 @@ class Profissional extends Model
         'coren'
     ];
 
+    public function competencias()
+    {
+        return $this->hasMany(Competencias::class);
+    }
+
 }
