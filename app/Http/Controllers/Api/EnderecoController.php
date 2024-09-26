@@ -3,68 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Endereco;
-use App\Models\User;
-use Exception;
-use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Api\EnderecoRequest;
+use App\Http\Resources\EnderecoResource;
+use App\Interfaces\Endereco\EnderecoServiceInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class EnderecoController extends Controller
 {
-    public function index(): JsonResponse
+    public function __construct(
+        private EnderecoServiceInterface $enderecoService
+    ) {}
+
+    public function show(string $id): EnderecoResource
     {
-        $endereco = Endereco::get();
-        $status = Response::HTTP_FOUND;
-
-        if (count($endereco) > 0) {
-            $body = [
-                true,
-                "Endereços encontrados!",
-                $endereco
-            ];
-        } else {
-            $status = Response::HTTP_NOT_FOUND;
-            $body = [
-                false,
-                "Endereços não encontrados!",
-                null
-            ];
-        }
-
-        return $this->sendResponse($body, $status);
-    }
-
-    public function show(string $id)
-    {
-        try {
-            $endereco = Endereco::where("id_endereco", $id)->first();
-
-            if (isset($endereco)) {
-                $status = Response::HTTP_FOUND;
-                $body = [
-                    true,
-                    "Endereços encontrados!",
-                    $endereco
-                ];
-            } else {
-                $status = Response::HTTP_NOT_FOUND;
-                $body = [
-                    false,
-                    "Endereços não encontrados!",
-                    null
-                ];
-            }
-        } catch (Exception $e) {
-            $status = Response::HTTP_SERVICE_UNAVAILABLE;
-            $body = [
-                true,
-                "Endereços não encontrados!",
-                $e->getMessage()
-            ];
-            
-        } finally {
-            return $this->sendResponse($body, $status);
-        }
+        return $this->enderecoService->show($id);
     }
 }
