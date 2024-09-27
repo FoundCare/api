@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\EnderecoRequest;
+use App\Http\Requests\Endereco\EnderecoRequest;
+use App\Http\Requests\Endereco\EnderecoUpdateRequest;
 use App\Http\Resources\EnderecoResource;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
-use App\Models\Endereco;
 use Illuminate\Http\Request;
 
 class EnderecoController extends Controller
@@ -25,7 +25,7 @@ class EnderecoController extends Controller
         return $this->enderecoService->store($request->all());
     }
 
-    public function update(Request $request, string $id)
+    public function update(EnderecoUpdateRequest $request, string $id)
     {
         return $this->enderecoService->update($request->all(), $id);
     }

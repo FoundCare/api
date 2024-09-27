@@ -19,6 +19,12 @@ class Endereco extends Model
     ];
 
     /**
+     * Esta variável define o nome da primaryKey da Model que o Eloquent irá utilizar
+     * Para realizar a verificação nos métodos "find" e "findOrFail"
+     */
+    protected $primaryKey = "id_endereco";
+
+    /**
      * Relacionamento entre as tabelas
      * 
      * Get the user that owns the endereco

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Endereco;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -40,7 +40,7 @@ class EnderecoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $validations = [
             "logradouro" => [
                 "required",
                 "min:15",
@@ -67,5 +67,7 @@ class EnderecoRequest extends FormRequest
                 "max: 2"
             ],
         ];
+        
+        return $validations;
     }
 }
