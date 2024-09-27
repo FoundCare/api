@@ -60,15 +60,14 @@ class EnderecoService implements EnderecoServiceInterface
         try{
             DB::beginTransaction();
 
-            $endereco = Endereco::where("id_endereco", $id)->findOrFail($id);
-            dd($endereco);
+            $endereco = Endereco::findOrFail($id);
             
             $body = [
-                "logradouro" => $data['logradouro'] ? : $endereco['logradouro'],
-                "bairro" => $data['bairro'] ? : $endereco['bairro'],
-                "cep" => $data['cep'] ? : $endereco['cep'],
-                "cidade" => $data['cidade'] ? : $endereco['cidade'],
-                "estado" => $data['estado'] ? : $endereco['bairro']
+                "logradouro" => $data['logradouro'] ?? $endereco['logradouro'],
+                "bairro" => $data['bairro'] ?? $endereco['bairro'],
+                "cep" => $data['cep'] ??  $endereco['cep'],
+                "cidade" => $data['cidade'] ??  $endereco['cidade'],
+                "estado" => $data['estado'] ??  $endereco['bairro']
             ];
             $endereco->update($body);
 
