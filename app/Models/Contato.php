@@ -18,6 +18,8 @@ class Contato extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected $primaryKey = "id_contato";
+
     protected $fillable = [
         "celular",
         "telefone"
