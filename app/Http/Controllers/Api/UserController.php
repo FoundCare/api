@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
+use App\Interfaces\User\UserServiceInterface;
 use App\Models\Contato;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -13,17 +14,23 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private UserServiceInterface $userService
+    )
+    {
+
+    }
     /**
      * Retorna uma lista páginada de usuários
-     * 
+     *
      * Este método recupera uma lista paginada de usuários do banco de dados
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(): JsonResponse
     {
         $user = User::get();
-        
+
         $body = [true, "Success", $user];
 
         return $this->sendResponse($body, 200);
@@ -31,28 +38,20 @@ class UserController extends Controller
 
     /**
      * Retorna um usuário específico
-     * 
+     *
      * Este método recupera um usuário específico com base no id
-     * 
+     *
      * @param App\Models\User;
      * @return \Illuminate\Http\JsonResponse;
      */
-    public function show(User $user): JsonResponse
+    public function show($id)
     {
-        $user = User::where('id', $user->id);
-    
-        $body = [
-            true, 
-            "Success",
-            $user
-        ];
-
-        return $this->sendResponse($body, 200);
+        return $this->userService->show($id);
     }
 
     /**
      * Este método é responsável por gravar um usuário no banco
-     * 
+     *
      * @param App\Http\Requests\Api\UserStoreRequest;
      * @return Illuminate\Http\JsonResponse;
      */
@@ -61,7 +60,7 @@ class UserController extends Controller
         // Iniciar transação
         DB::beginTransaction();
 
-        try{ 
+        try{
             $user = User::create([
                 "name" => $request->name,
                 "email" => $request->email,
@@ -72,11 +71,11 @@ class UserController extends Controller
             DB::commit();
 
             $body = [
-                true, 
-                "Usuário cadastrado com sucesso!", 
+                true,
+                "Usuário cadastrado com sucesso!",
                 $user
             ];
-    
+
             return $this->sendResponse($body, 201);
 
         } catch(Exception $e){
@@ -84,35 +83,35 @@ class UserController extends Controller
             DB::rollBack();
 
             $body = [
-                true, 
-                "Usuário não cadastrado", 
+                true,
+                "Usuário não cadastrado",
                 $user
             ];
-    
+
             return $this->sendResponse($body, 403);
         }
-  
-    }   
+
+    }
 
     /**
-     * Este método é responsável por editar um usuário existente no banco de dados 
-     * 
+     * Este método é responsável por editar um usuário existente no banco de dados
+     *
      * @param UserStoreRequest
      * @param User
-     * 
+     *
      * @return JsonResponse
      */
     public function update(UserEditRequest $request, User $user): JsonResponse
     {
         DB::beginTransaction();
         try{
-           
+
             $user->update([
                 "name" => $request->name ? : $user->name,
                 "email" => $request->email ? : $user->email,
                 "password" => $request->password ? : $user->password
             ]);
-            
+
             DB::commit();
 
             $body = [
@@ -138,7 +137,7 @@ class UserController extends Controller
 
     /**
      * Este método faz a exclusão do usuário no banco de dados
-     * 
+     *
      * @param \App\Models\User
      * @return \Illuminate\Http\JsonResponse
      */
@@ -163,5 +162,5 @@ class UserController extends Controller
             return $this->sendResponse($data, 200);
         }
     }
-    
+
 }
