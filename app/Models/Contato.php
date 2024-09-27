@@ -26,7 +26,6 @@ class Contato extends Model
     ];
 
     protected $hidden = [
-        "id_contato",
         "created_at",
         "updated_at"
     ];

@@ -2,6 +2,7 @@
 
 namespace App\Services\Contato;
 
+use App\Http\Requests\Contato\ContatoRequest;
 use App\Http\Resources\ContatoResource;
 use App\Http\Resources\EnderecoResource;
 use App\Interfaces\Contato\ContatoServiceInterface;
@@ -53,13 +54,26 @@ class ContatoService implements ContatoServiceInterface
         }
     }
 
-    public function update($request, $id)
+    public function update($data, $id)
     {
+        try{
+            $contato = Contato::findOrFail($id);
 
+            $contato->update([
+                "telefone" => $data['telefone'] ?? null,
+                "celular" => $data['celular'] ?? $contato->celular
+            ]);
+
+            return new ContatoResource($contato);
+        } catch(ModelNotFoundException $e){
+            $data = [
+                "message" => $e->getMessage()
+            ];
+            return new ContatoResource($data);
+        }
     }
 
     public function destroy($id)
-
     {
 
     }

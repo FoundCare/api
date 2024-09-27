@@ -22,4 +22,9 @@ class ContatoController extends Controller
     {
         return $this->contatoService->store($request->only('telefone', 'celular'));
     }
+
+    public function update(ContatoRequest $request, $id)
+    {
+        return $this->contatoService->update($request->only('telefone', 'celular'), $id);
+    }
 }
