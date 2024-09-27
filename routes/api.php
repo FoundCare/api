@@ -3,9 +3,11 @@
 use App\Http\Controllers\Api\EnderecoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
+use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test/{id}', [EnderecoController::class, 'show']);
+Route::patch('/enderecos/{id}', [EnderecoController::class, 'update']);
+Route::get('teste-teste', [ExampleController::class, 'teste']);
 
 /** ROTAS DOS USUÁRIOS */
 // GET - http://127.0.0.1:8000/api/users?page=1
