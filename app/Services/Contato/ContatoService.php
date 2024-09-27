@@ -75,7 +75,23 @@ class ContatoService implements ContatoServiceInterface
 
     public function destroy($id)
     {
+        try {
+            $contato = Contato::findOrFail($id);
 
+            $contato->delete();
+            $data = [
+                "message" => "Deletado com sucesso!"
+            ];
+
+            return response()->json(new EnderecoResource($data), 200);
+
+        } catch(ModelNotFoundException $e){
+            $data = [
+                "error" => $e->getMessage()
+            ];
+
+            return response()->json(new EnderecoResource($data), 404);
+        }
     }
 
 }

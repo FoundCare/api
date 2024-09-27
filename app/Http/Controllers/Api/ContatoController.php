@@ -27,4 +27,9 @@ class ContatoController extends Controller
     {
         return $this->contatoService->update($request->only('telefone', 'celular'), $id);
     }
+
+    public function destroy($id)
+    {
+        return $this->contatoService->destroy($id);
+    }
 }

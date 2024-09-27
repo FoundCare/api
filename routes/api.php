@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ProfissionalController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
-Route::patch('/contatos/{id}', [ContatoController::class, 'update']);
+Route::delete('/contatos/{id}', [ContatoController::class, 'destroy']);
 Route::get('teste-teste', [ExampleController::class, 'teste']);
 
 /** ROTAS DOS USUÁRIOS */
