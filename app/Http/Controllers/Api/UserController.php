@@ -7,10 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
 use App\Interfaces\User\UserServiceInterface;
-use App\Models\Contato;
-use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -27,13 +24,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): JsonResponse
+    public function index()
     {
-        $user = User::get();
-
-        $body = [true, "Success", $user];
-
-        return $this->sendResponse($body, 200);
     }
 
     /**
@@ -55,41 +47,8 @@ class UserController extends Controller
      * @param App\Http\Requests\Api\UserStoreRequest;
      * @return Illuminate\Http\JsonResponse;
      */
-    public function store(UserStoreRequest $request): JsonResponse
+    public function store(UserStoreRequest $request)
     {
-        // Iniciar transação
-        DB::beginTransaction();
-
-        try{
-            $user = User::create([
-                "name" => $request->name,
-                "email" => $request->email,
-                "password" => $request->password
-            ]);
-
-            // Confirma o cadastro no banco de dados
-            DB::commit();
-
-            $body = [
-                true,
-                "Usuário cadastrado com sucesso!",
-                $user
-            ];
-
-            return $this->sendResponse($body, 201);
-
-        } catch(Exception $e){
-            // Operação não concluída com êxito
-            DB::rollBack();
-
-            $body = [
-                true,
-                "Usuário não cadastrado",
-                $user
-            ];
-
-            return $this->sendResponse($body, 403);
-        }
 
     }
 
@@ -101,38 +60,9 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function update(UserEditRequest $request, User $user): JsonResponse
+    public function update(UserEditRequest $request, $id)
     {
-        DB::beginTransaction();
-        try{
 
-            $user->update([
-                "name" => $request->name ? : $user->name,
-                "email" => $request->email ? : $user->email,
-                "password" => $request->password ? : $user->password
-            ]);
-
-            DB::commit();
-
-            $body = [
-                true,
-                "Usuário editado com sucesso!",
-                $user
-            ];
-
-            return $this->sendResponse($body, 201);
-
-        } catch(Exception $e){
-            DB::rollBack();
-
-            $body = [
-                false,
-                "Usuário não editado",
-                $e
-            ];
-
-            return $this->sendResponse($body, 400);
-        }
     }
 
     /**
@@ -141,26 +71,9 @@ class UserController extends Controller
      * @param \App\Models\User
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy($id)
     {
-        try{
-            $user->delete();
-            $data = [
-                true,
-                "Usuário deletado com sucesso!",
-                $user
-            ];
-            return $this->sendResponse($data, 200);
-        }
-        catch(Exception $e){
 
-            $data = [
-                false,
-                "Usuário não deletado!",
-                []
-            ];
-            return $this->sendResponse($data, 200);
-        }
     }
 
 }
