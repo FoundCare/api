@@ -39,15 +39,35 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        // Recupera o valor do id enviado na rota
-        $this->route('user');
-        
-        return [
-            'name' => 'required|unique:users|min:6',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|max:255'
+        $validations = [
+            "nome" => [
+                'required',
+                'min:6',
+                'max:250'
+            ],
+            "email" => [
+                'required',
+                'email',
+                'max:250',
+                'unique:users'
+            ],
+            "senha" => [
+                'required',
+                'min:6',
+                'max:30'
+            ],
+            'data_nasc' => [
+                'required',
+                'date_format:Y-m-d'
+            ],
+            'cpf' => [
+                'required',
+                'unique:users',
+                'max:12'
+            ]
         ];
+
+        return $validations;
     }
     
     /**
@@ -62,7 +82,9 @@ class UserStoreRequest extends FormRequest
             "required" => "Campo :attribute é obrigatório!",
             "min" => "O campo :attribute precisa de 6 caracteres",
             "email.email" => "Email não é valido!",
-            "unique" => ":attribute já existente no banco de dados!",
+            "max" => "Máximo de caracteres atingido no campo :attribute",
+            "unique" => ":attribute já existente no banco de dados, verifique os dados e tente novamente!",
+            "date_format" => "Formato da data está incorreto, tente Ano-mês-dia"
         ];
     }
 }
