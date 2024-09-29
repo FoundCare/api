@@ -63,11 +63,21 @@ class EnderecoRequest extends FormRequest
             ],
             "estado" => [
                 "required",
-                "min: 2",
                 "max: 2"
             ],
         ];
         
         return $validations;
+    }
+
+    public function messages()
+    {
+        $messages = [
+            "required" => "Campo :attribute é obrigatório!",
+            "min" => "O campo :attribute não atingiu o minimo de caracteres necessário!",
+            "max" => "O campo :attribute atingiu o máximo de caracteres permitido!"
+        ];
+
+        return $messages;
     }
 }
