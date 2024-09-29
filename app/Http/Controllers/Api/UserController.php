@@ -8,6 +8,7 @@ use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
 use App\Http\Requests\Contato\ContatoRequest;
 use App\Http\Requests\Endereco\EnderecoRequest;
+use App\Http\Requests\Endereco\EnderecoUpdateRequest;
 use App\Interfaces\User\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -63,9 +64,9 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function update(UserEditRequest $request, $id)
+    public function update(UserEditRequest $request, EnderecoUpdateRequest $enderecoRequest, ContatoRequest $contatoRequest, $id)
     {
-
+        return $this->userService->update($request, $id);
     }
 
     /**

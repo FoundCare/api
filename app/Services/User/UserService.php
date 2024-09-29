@@ -38,6 +38,7 @@ class UserService implements UserServiceInterface
             return response()->json(new UserResource($data), 404);
         }
     }
+
     public function store($data)
     {
         try{
@@ -73,10 +74,42 @@ class UserService implements UserServiceInterface
         }
         
     }
+
     public function update($data, $id)
     {
+        $enderecoRequest = $data->only('logradouro', 'bairro', 'cep', 'cidade', 'estado');
+        $contatoRequest = $data->only('telefone', 'celular');
+        $userRequest = $data->only('nome', 'email', 'data_nasc', 'cpf', 'senha');
 
+        $this->enderecoService->update($enderecoRequest, $id);
+        $this->contatoService->update($contatoRequest, $id);
+        try {
+
+        $user = User::findOrFail($id);
+        
+        $user->update([
+            "nome" => $userRequest['nome'] ?? $user->nome,
+            "email" => $userRequest['email'] ?? $user->email,
+            "data_nasc" => $userRequest['data_nasc'] ?? $user->data_nasc,
+            "cpf" => $userRequest['cpf'] ?? $user->cpf,
+            "senha" => $userRequest['senha'] ?? $user->senha
+        ]);
+
+        return response()->json(new UserResource($data), 201);
+
+        } catch(ModelNotFoundException $e) {
+            $data = [
+                "error" => $e->getMessage()
+            ];
+            return response()->json(new UserResource($data), 404);
+        } catch(Exception $e){
+            $data = [
+                "error" => $e->getMessage()
+            ];
+            return response()->json(new UserResource($data), 404);
+        }
     }
+
     public function destroy($id)
     {
 
