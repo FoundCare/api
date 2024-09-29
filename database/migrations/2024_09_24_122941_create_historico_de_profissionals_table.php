@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('historico_de_profissionais', function (Blueprint $table) {
             $table->id("id_historico_profissional");
-            $table->foreignIdFor(Paciente::class, "id_paciente");
-            $table->foreignIdFor(Anuncio::class, "id_anuncio");
+            //$table->foreignIdFor(Paciente::class, "id_paciente");
+            //$table->foreignIdFor(Anuncio::class, "id_anuncio");
             $table->date("data_contato")->default(Carbon::now()->toDateString());
             $table->timestamps();
         });

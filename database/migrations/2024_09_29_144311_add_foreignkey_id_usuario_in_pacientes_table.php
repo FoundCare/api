@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pacientes', function (Blueprint $table) {
-            $table->id("id_paciente");
-            //$table->foreignIdFor(User::class, "id_usuario")->unique();
-            $table->enum("validado", ['pendente', 'aprovado'])->default('pendente');
-            $table->timestamps();
+        Schema::table('pacientes', function (Blueprint $table) {
+            $table->integer("id_usuario")->unsigned();
+            $table->foreign("id_usuario")->references("id")->on("users");
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pacientes');
+        Schema::table('pacientes', function (Blueprint $table) {
+            //
+        });
     }
 };
