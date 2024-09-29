@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date('data_nasc');
             $table->string('cpf', 12)->unique();
             $table->string('senha', 30);
-            $table->foreignIdFor(Endereco::class, "id_endereco");
-            $table->foreignIdFor(Contato::class, "id_contato");
+            //$table->foreignIdFor(Endereco::class, "id_endereco")->delete('cascade');
+            //$table->foreignIdFor(Contato::class, "id_contato")->delete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,13 +18,14 @@ class Contato extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected $primaryKey = "id_contato";
+
     protected $fillable = [
         "celular",
         "telefone"
     ];
 
     protected $hidden = [
-        "id_contato",
         "created_at",
         "updated_at"
     ];

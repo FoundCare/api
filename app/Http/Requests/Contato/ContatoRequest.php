@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Endereco;
+namespace App\Http\Requests\Contato;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-class EnderecoRequest extends FormRequest
+class ContatoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,10 @@ class EnderecoRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $data = [
+        throw new HttpResponseException(response()->json([
             'status' => false,
             'erros' => $validator->errors()
-        ];
-        throw new HttpResponseException(response()->json($data, 422));
+        ], 422));
     }
 
     /**
@@ -41,41 +40,26 @@ class EnderecoRequest extends FormRequest
     public function rules(): array
     {
         $validations = [
-            "logradouro" => [
-                "required",
-                "min:15",
-                "max:250"
+            "telefone" => [
+                "nullable",
+                "max:15"
             ],
-            "bairro" => [
+            "celular" => [
                 "required",
-                "min:6",
-                "max: 45"
-            ],
-            "cep" => [
-                "required",
-                "min:8",
-                "max: 8"
-            ],
-            "cidade" => [
-                "required",
-                "min:6",
-                "max: 25"
-            ],
-            "estado" => [
-                "required",
-                "max: 2"
-            ],
+                "max:15",
+                "unique:contatos"
+            ]
         ];
-        
+
         return $validations;
     }
 
-    public function messages()
+    public function messages(): array
     {
         $messages = [
-            "required" => "Campo :attribute é obrigatório!",
-            "min" => "O campo :attribute não atingiu o minimo de caracteres necessário!",
-            "max" => "O campo :attribute atingiu o máximo de caracteres permitido!"
+            "required" => "O campo :attribute é um campo obrigatório",
+            "max" => "O campo :attribute atingiu seu limite de caracteres",
+            "unique" => ":attribute indisponível!"
         ];
 
         return $messages;
