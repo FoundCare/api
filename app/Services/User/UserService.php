@@ -112,6 +112,18 @@ class UserService implements UserServiceInterface
 
     public function destroy($id)
     {
-
+        try{
+            $user = User::findOrFail($id);
+            $user->delete();
+            $data = [
+                "message" => "Excluído com sucesso!"
+            ];
+            return response()->json(new UserResource($data), 200);
+        } catch(ModelNotFoundException $e){
+            $data = [
+                "error" => $e->getMessage()
+            ];
+            return response()->json(new UserResource($data), 404);
+        }
     }
 }
