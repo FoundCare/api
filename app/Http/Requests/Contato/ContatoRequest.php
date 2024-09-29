@@ -46,7 +46,8 @@ class ContatoRequest extends FormRequest
             ],
             "celular" => [
                 "required",
-                "max:15"
+                "max:15",
+                "unique:contatos"
             ]
         ];
 
@@ -57,7 +58,8 @@ class ContatoRequest extends FormRequest
     {
         $messages = [
             "required" => "O campo :attribute é um campo obrigatório",
-            "max" => "O campo :attribute atingiu seu limite de caracteres"
+            "max" => "O campo :attribute atingiu seu limite de caracteres",
+            "unique" => ":attribute indisponível!"
         ];
 
         return $messages;
