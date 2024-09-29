@@ -14,16 +14,16 @@ Route::get('teste-teste', [ExampleController::class, 'teste']);
 Route::get('/users', [UserController::class, 'index']);
 
 // GET - http://127.0.0.1:8000/api/users/{user}
-Route::get('/users/{user}', [UserController::class, 'show']);
+Route::get('/users/{id}', [UserController::class, 'show']);
 
 // POST - http://127.0.0.1:8000/api/users
 Route::post('/users', [UserController::class, 'store']);
 
 // PUT - http://127.0.0.1:8000/api/users/1
-Route::patch('/users/{user}', [UserController::class, 'update']);
+Route::patch('/users/{id}', [UserController::class, 'update']);
 
 // DELETE - http://127.0.0.1:8000/api/users/1
-Route::delete('/users/{user}', [UserController::class, 'destroy']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 /** ROTAS DO PROFISSIONAL*/
 
