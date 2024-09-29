@@ -6,8 +6,11 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Api\UserStoreRequest;
+use App\Http\Requests\Contato\ContatoRequest;
+use App\Http\Requests\Endereco\EnderecoRequest;
 use App\Interfaces\User\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -47,9 +50,9 @@ class UserController extends Controller
      * @param App\Http\Requests\Api\UserStoreRequest;
      * @return Illuminate\Http\JsonResponse;
      */
-    public function store(UserStoreRequest $request)
+    public function store(UserStoreRequest $request, EnderecoRequest $enderecoRequest, ContatoRequest $contatoRequest)
     {
-
+        return $this->userService->store($request);
     }
 
     /**

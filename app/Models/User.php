@@ -41,7 +41,9 @@ class User extends Authenticatable
         'email',
         'senha',
         'data_nasc',
-        'cpf'
+        'cpf',
+        "id_endereco",
+        "id_contato"
     ];
 
     /**
