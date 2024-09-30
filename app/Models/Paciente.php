@@ -14,7 +14,20 @@ class Paciente extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_paciente',
+        'id_usuario'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'id_usuario',
+        'id',
+        'deleted_at',
+        'senha',
+        'remember_token',
+        'id_endereco',
+        'id_contato',
+        'email_verified_at'
     ];
 
     public function user(): BelongsTo
