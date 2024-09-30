@@ -13,6 +13,8 @@ class Paciente extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $primaryKey = "id_paciente";
+
     protected $fillable = [
         'id_usuario'
     ];

@@ -36,15 +36,7 @@ class PacienteController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return $this->pacienteService->show($id);
     }
 
     /**
