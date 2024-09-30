@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Contato\ContatoServiceInterface;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
+use App\Interfaces\Paciente\PacienteServiceInterface;
 use App\Interfaces\User\UserServiceInterface;
 use App\Services\Contato\ContatoService;
 use App\Services\Endereco\EnderecoService;
@@ -20,6 +21,7 @@ class ServicesProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(ContatoServiceInterface::class, ContatoService::class);
         $this->app->bind(EnderecoServiceInterface::class, EnderecoService::class);
+        $this->app->bind(PacienteServiceInterface::class);
     }
 
     /**
