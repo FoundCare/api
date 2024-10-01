@@ -64,13 +64,13 @@ class UserService implements UserServiceInterface
             
             DB::commit();
 
-            return response()->json(new UserResource($user));
+            return new UserResource($user);
 
         } catch(Exception $e){
             $data = [
                 "error" => $e->getMessage()
             ];
-            return response()->json(new UserResource($data), 404);
+            return new UserResource($data);
         }
         
     }
