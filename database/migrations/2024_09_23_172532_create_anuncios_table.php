@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id("id_anuncio");
             $table->string("titulo", 45);
             $table->string("descricao", 250);
+            $table->foreignIdFor(Profissional::class, 'id_profissional')->constrained()->onDelete('cascade'); // Criação da chave estrangeira com constrains
             $table->timestamps();
         });
     }

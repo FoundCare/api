@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Formacoes extends Model
+class Formacao extends Model
 {
     use HasFactory;
 
@@ -17,4 +17,9 @@ class Formacoes extends Model
         'token_certificado'
 
     ];
+
+    public function profissional(): BelongsTo
+    {
+        return $this->belongsTo(Profissional::class, 'id_profissional');
+    }
 }

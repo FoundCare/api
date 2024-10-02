@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('cnpj');
             $table->string('razao_social');
             $table->string('coren')->unique();
+            $table->foreignId('user_id')->constrained('users');
             $table->enum('status_validacao', ['pendente', 'negado', 'aprovado'])->default('pendente');
             $table->timestamps();
         });
