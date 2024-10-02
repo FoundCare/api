@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UserEditRequest;
 use App\Http\Requests\Endereco\EnderecoRequest;
 use App\Http\Requests\Api\UserStoreRequest;
-use App\Http\Requests\Contato\ContatoRequest;
+use App\Http\Requests\Contato\ContatoEditRequest;
+use App\Http\Requests\Endereco\EnderecoUpdateRequest;
 use App\Interfaces\Paciente\PacienteServiceInterface;
 
 class PacienteController extends Controller
@@ -42,9 +44,9 @@ class PacienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserEditRequest $request, EnderecoUpdateRequest $enderecoRequest, ContatoEditRequest $contatoRequest, string $id)
     {
-        //
+        return $this->pacienteService->update($request, $id);
     }
 
     /**

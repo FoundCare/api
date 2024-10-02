@@ -85,6 +85,8 @@ class PacienteService implements PacienteServiceInterface
 
     public function update($data, $id)
     {
+        $paciente = $this->userService->update($data, $id);
+        return response()->json($paciente, 200);
     }
 
     public function destroy($id)

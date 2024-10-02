@@ -19,6 +19,7 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::get("/pacientes", [PacienteController::class, 'index']);
 Route::get("/pacientes/{id}", [PacienteController::class, 'show']);
 Route::post("/pacientes", [PacienteController::class, 'store']);
+Route::patch("/pacientes/{id}", [PacienteController::class, 'update']);
 
 /** ROTAS DO PROFISSIONAL*/
 Route::get('/profissionais', [ProfissionalController::class, 'index']);
