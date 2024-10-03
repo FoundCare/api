@@ -41,4 +41,29 @@ class Profissional extends Model
         return $this->hasMany(Competencias::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function anuncios(): HasMany
+    {
+        return $this->hasMany(Anuncio::class, 'id_profissional');
+    }
+
+    public function historicoDeProfissionais(): HasMany
+    {
+        return $this->hasMany(HistoricoDeProfissional::class, 'id_profissional');
+    }
+
+    public function especialidade(): HasOne
+    {
+        return $this->hasOne(Especialidade::class,'id_profissional');
+    }
+
+    public function formacoes(): HasMany
+    {
+        return $this->hasMany(Formacao::class, 'id_profissional');
+    }
+
 }

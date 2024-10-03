@@ -12,6 +12,11 @@ class Anuncio extends Model
 
     public function historicoDeProfissionais(): HasMany
     {
-        return $this->hasMany(HistoricoDeProfissional::class, "id_historico_profissional");
+        return $this->hasMany(HistoricoDeProfissional::class, "id_anuncio");
+    }
+
+    public function profissional(): BelongsTo
+    {
+        return $this->belongsTo(Profissional::class,'id_profissional');
     }
 }

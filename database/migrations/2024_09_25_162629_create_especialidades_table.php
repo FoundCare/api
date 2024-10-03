@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string ('nome');
             $table->string ('comprovante');
+            $table->foreignId('id_profissional')->constrained('profissionais')->onDelete('cascade');
             $table->timestamps();
         });
     }

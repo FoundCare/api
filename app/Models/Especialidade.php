@@ -13,4 +13,10 @@ class Especialidade extends Model
         'nome',
         'comprovante'
     ];
+
+
+    public function profissional(): BelongsTo
+    {
+        return $this->belongsTo(Profissional::class, 'id_profissional');
+    } 
 }
