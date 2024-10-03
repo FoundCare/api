@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $seeders = [
             ContatoSeeder::class,
             EnderecoSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            PacienteSeeder::class
         ];
 
         $this->call($seeders);
