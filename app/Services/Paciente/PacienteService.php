@@ -91,6 +91,7 @@ class PacienteService implements PacienteServiceInterface
 
     public function destroy($id)
     {
+        return $this->userService->destroy($id);
     }
 
     

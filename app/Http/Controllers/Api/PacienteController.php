@@ -9,12 +9,18 @@ use App\Http\Requests\Endereco\EnderecoRequest;
 use App\Http\Requests\Api\UserStoreRequest;
 use App\Http\Requests\Contato\ContatoEditRequest;
 use App\Http\Requests\Endereco\EnderecoUpdateRequest;
+use App\Http\Resources\PacienteResource;
 use App\Interfaces\Paciente\PacienteServiceInterface;
+use App\Interfaces\User\UserServiceInterface;
+use App\Models\Paciente;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PacienteController extends Controller
 {
     public function __construct(
-        private PacienteServiceInterface $pacienteService
+        private PacienteServiceInterface $pacienteService,
+        private UserServiceInterface $userService
     )
     {
         
@@ -54,6 +60,26 @@ class PacienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $paciente = Paciente::findOrFail($id);
+            $this->userService->destroy($paciente->id_usuario);
+            $paciente->delete();
+            $data = [
+                "message" => "Usuário deletado com sucesso"
+            ];
+
+            return response()->json(new PacienteResource($data), 200);
+
+        } catch(ModelNotFoundException $e){
+            $data = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json(new PacienteResource($data), 404);
+        } catch(Exception $e){
+            $data = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json(new PacienteResource($data), 404);
+        }
     }
 }
