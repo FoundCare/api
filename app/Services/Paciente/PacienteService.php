@@ -91,7 +91,27 @@ class PacienteService implements PacienteServiceInterface
 
     public function destroy($id)
     {
-        return $this->userService->destroy($id);
+        try{
+            $paciente = Paciente::findOrFail($id);
+            $this->userService->destroy($paciente->id_usuario);
+            $paciente->delete();
+            $data = [
+                "message" => "Usuário deletado com sucesso"
+            ];
+
+            return response()->json(new PacienteResource($data), 200);
+
+        } catch(ModelNotFoundException $e){
+            $data = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json(new PacienteResource($data), 404);
+        } catch(Exception $e){
+            $data = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json(new PacienteResource($data), 404);
+        }
     }
 
     
