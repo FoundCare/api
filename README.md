@@ -4,6 +4,10 @@ Para rodar esse projeto em sua máquina, são necessários os seguintes pacotes.
 
 ## Requerimentos
 - Gerenciador de dependências <i>Composer</i> 
+    - Faça o teste se você possui o composer
+      ``` bash
+      composer -v
+      ```
     - Link de download: https://getcomposer.org/download/
 - <i>PHP</i> ou o <i>Xampp</i> instalado na máquina
     - Link de download: https://www.apachefriends.org/pt_br/download.html
