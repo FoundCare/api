@@ -60,7 +60,7 @@ class Profissional extends Model
 
     public function especialidade(): HasOne
     {
-        return $this->hasOne(Especialidade::class,'id_profissional');
+        return $this->hasOne(Especialidade::class, "id_especialidade");
     }
 
     public function formacoes(): HasMany
