@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Api\ContatoController;
 use App\Http\Controllers\Api\EnderecoController;
+use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
-use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
 /** ROTAS DOS USUÁRIOS */
@@ -14,6 +14,10 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::patch('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+/** rotas de teste */
+Route::get('/especialidade/{id}', [EspecialidadeController::class, 'show']);
+Route::post('/especialidade', [EspecialidadeController::class, 'store']);
 
 /**ROTAS DOS PACIENTES */
 Route::get("/pacientes", [PacienteController::class, 'index']);

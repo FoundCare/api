@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             ContatoSeeder::class,
             EnderecoSeeder::class,
             UserSeeder::class,
-            PacienteSeeder::class
+            PacienteSeeder::class,
+            EspecialidadeSeeder::class
         ];
 
         $this->call($seeders);
