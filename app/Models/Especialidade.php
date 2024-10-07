@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Especialidade extends Model
 {
@@ -14,6 +15,7 @@ class Especialidade extends Model
         'comprovante'
     ];
 
+    protected $primaryKey = "id_especialidade";
 
     public function profissional(): BelongsTo
     {
