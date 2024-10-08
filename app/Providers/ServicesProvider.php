@@ -10,6 +10,7 @@ use App\Services\Contato\ContatoService;
 use App\Services\Endereco\EnderecoService;
 use App\Services\Paciente\PacienteService;
 use App\Services\User\UserService;
+use App\Services\AnuncioService;
 use Illuminate\Support\ServiceProvider;
 
 class ServicesProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class ServicesProvider extends ServiceProvider
         $this->app->bind(ContatoServiceInterface::class, ContatoService::class);
         $this->app->bind(EnderecoServiceInterface::class, EnderecoService::class);
         $this->app->bind(PacienteServiceInterface::class, PacienteService::class);
+        $this->app->bind(AnuncioServiceInterface::class, AnuncioService::class);
     }
 
     /**

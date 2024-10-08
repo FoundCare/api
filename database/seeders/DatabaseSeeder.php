@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             ContatoSeeder::class,
             EnderecoSeeder::class,
             UserSeeder::class,
-            PacienteSeeder::class
+            PacienteSeeder::class,
+            ProfissionalSeeder::class,
+            AnuncioSeeder::class,
         ];
 
         $this->call($seeders);

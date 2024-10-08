@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EnderecoController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
+use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,11 @@ Route::get('/profissionais/{profissional}', [ProfissionalController::class, 'sho
 Route::post('/profissionais', [ProfissionalController::class, 'store']);
 Route::patch('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
 Route::delete('/profissionais/{profissional}', [ProfissionalController::class, 'destroy']);
+
+/**ROTAS DE ANUNCIOS */
+
+    Route::get('/anuncios', [AnuncioController::class, 'index'])->name('anuncios.index');
+    Route::get('/{id}', [AnuncioController::class, 'show'])->name('anuncios.show');
+    Route::post('/', [AnuncioController::class, 'store'])->name('anuncios.store');
+    Route::patch('/{id}', [AnuncioController::class, 'update'])->name('anuncios.update');
+    Route::delete('/{id}', [AnuncioController::class, 'destroy'])->name('anuncios.destroy');

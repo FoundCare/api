@@ -13,20 +13,21 @@ class ContatoSeeder extends Seeder
      */
     public function run(): void
     {
-        Contato::create([
+        Contato::firstOrCreate([
             "celular" => "11988745701"
         ]);
-        Contato::create([
+        Contato::firstOrCreate([
             "celular" => "11988745702"
         ]);
-        Contato::create([
+        Contato::firstOrCreate([
             "celular" => "11988745703"
         ]);
-        Contato::create([
+        Contato::firstOrCreate([
             "celular" => "11988745704"
         ]);
-        Contato::create([
+        Contato::firstOrCreate([
             "celular" => "11988745705"
         ]);
+        
     }
 }

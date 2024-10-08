@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Profissional;
+use App\Models\User; // Adicionei a importação do modelo User
 
 class ProfissionalController extends Controller
 {
@@ -12,8 +13,8 @@ class ProfissionalController extends Controller
      */
     public function index()
     {
-        // Retorna todos os profissionais
-        return Profissional::all();
+        // Retorna todos os profissionais, incluindo dados do usuário
+        return Profissional::with('user')->get();
     }
 
     /**
@@ -23,22 +24,23 @@ class ProfissionalController extends Controller
     {
         // Valida os dados recebidos
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'cpf' => 'required|string|unique:profissionais',
-            'email' => 'required|string|email|max:255|unique:profissionais',
-            'data_nasc' => 'required|date',
-            'logradouro' => 'required|string|max:255',
-            'bairro' => 'required|string|max:255',
-            'cep' => 'required|string|max:9',
-            'celular' => 'required|string|max:15',
+            'user_id' => 'required|exists:users,id', // Verifica se o user_id existe
             'cnpj' => 'required|string|max:18',
             'razao_social' => 'required|string|max:255',
-            'coren' => 'required|string|unique:profissionais|max:10',
             'status_validacao' => 'in:pendente,negado,aprovado',
         ]);
 
+        // Busca o usuário para obter os dados
+        $user = User::find($validatedData['user_id']);
+
         // Criação do novo profissional
-        $profissional = Profissional::create($validatedData);
+        $profissional = Profissional::create([
+            'user_id' => $validatedData['user_id'], // Adicionando o user_id ao Profissional
+            'cnpj' => $validatedData['cnpj'],
+            'razao_social' => $validatedData['razao_social'],
+            'status_validacao' => $validatedData['status_validacao'],
+        ]);
+
         return response()->json($profissional, 201);
     }
 
@@ -47,8 +49,8 @@ class ProfissionalController extends Controller
      */
     public function show(string $id)
     {
-        // Busca o profissional pelo ID
-        $profissional = Profissional::findOrFail($id);
+        // Busca o profissional pelo ID, incluindo o usuário
+        $profissional = Profissional::with('user')->findOrFail($id);
         return response()->json($profissional);
     }
 
@@ -62,19 +64,19 @@ class ProfissionalController extends Controller
 
         // Valida os dados recebidos para atualização
         $validatedData = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'cpf' => 'sometimes|required|string|unique:profissionais,cpf,'.$id,
-            'email' => 'sometimes|required|string|email|max:255|unique:profissionais,email,'.$id,
-            'data_nasc' => 'sometimes|required|date',
-            'logradouro' => 'sometimes|required|string|max:255',
-            'bairro' => 'sometimes|required|string|max:255',
-            'cep' => 'sometimes|required|string|max:9',
-            'celular' => 'sometimes|required|string|max:15',
+            'user_id' => 'sometimes|required|exists:users,id', // Verifica se o user_id existe
             'cnpj' => 'sometimes|required|string|max:18',
             'razao_social' => 'sometimes|required|string|max:255',
-            'coren' => 'sometimes|required|string|unique:profissionais,coren,'.$id,
             'status_validacao' => 'in:pendente,negado,aprovado',
         ]);
+
+        // Se user_id for fornecido, busque o usuário
+        if (isset($validatedData['user_id'])) {
+            $user = User::find($validatedData['user_id']);
+            $profissional->name = $user->nome; // Atualiza o nome do profissional com o do usuário
+            $profissional->cpf = $user->cpf; // Atualiza o CPF
+            $profissional->email = $user->email; // Atualiza o e-mail
+        }
 
         // Atualiza os dados do profissional
         $profissional->update($validatedData);

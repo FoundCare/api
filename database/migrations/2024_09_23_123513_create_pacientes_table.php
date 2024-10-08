@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id("id_paciente");
-            //$table->foreignIdFor(User::class, "id_usuario")->unique();
             $table->enum("validado", ['pendente', 'aprovado'])->default('pendente');
             $table->timestamps();
         });

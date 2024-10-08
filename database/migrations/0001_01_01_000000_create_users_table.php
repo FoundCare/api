@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 250);
+            $table->string('name', 250);
             $table->string('email', 250)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('data_nasc');
             $table->string('cpf', 12)->unique();
-            $table->string('senha', 30);
+            $table->string('password', 30);
             //$table->foreignIdFor(Endereco::class, "id_endereco")->delete('cascade');
             //$table->foreignIdFor(Contato::class, "id_contato")->delete('cascade');
             $table->rememberToken();

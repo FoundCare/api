@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Profissional;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User; // Importar a classe User
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class ProfissionalSeeder extends Seeder
 {
@@ -14,8 +13,25 @@ class ProfissionalSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!Profissional::where('email', 'matheusdesenvolvedor011@gmail.com')->first()){
-            Profissional::create([
+        // Limpa a tabela profissionais
+        Profissional::truncate();
+
+        // Busca ou cria um usuário para associar
+        $users = User::all();
+        if ($users->isEmpty()) {
+            $user = User::create([
+                'name' => 'Usuário de Exemplo',
+                'email' => 'exemplo@teste.com',
+                'data_nasc' => '1999-o1-o1',
+                'password' => bcrypt('senha123'),
+            ]);
+        } else {
+            $user = $users->random(); // Escolhe um usuário aleatório para associar
+        }
+
+        // Lista de profissionais
+        $profissionais = [
+            [
                 "name" => "Jefferson",
                 "email" => "matheusdesenvolvedor011@gmail.com",
                 "cpf" => "47608923890",
@@ -26,11 +42,10 @@ class ProfissionalSeeder extends Seeder
                 "celular" => "11988745706",
                 "cnpj" => "05680926000199",
                 "razao_social" => "FOUNDCARE",
-                "coren" => "2415876"
-            ]);
-        }
-        if(!Profissional::where('email', 'ruansilva1404@gmail.com')->first()){
-            Profissional::create([
+                "coren" => "2415876",
+                "user_id" => 1
+            ],
+            [
                 "name" => "Ruan",
                 "email" => "ruansilva1404@gmail.com",
                 "cpf" => "47608923891",
@@ -41,11 +56,10 @@ class ProfissionalSeeder extends Seeder
                 "celular" => "11988745706",
                 "cnpj" => "05680926000199",
                 "razao_social" => "FOUNDCARE",
-                "coren" => "24154875"
-            ]);
-        }
-        if(!Profissional::where('email', 'geovannasilvasousa2@gmail.com')->first()){
-            Profissional::create([
+                "coren" => "24154875",
+                "user_id" => 2
+            ],
+            [
                 "name" => "Geovanna",
                 "email" => "geovannasilvasousa2@gmail.com",
                 "cpf" => "47608923892",
@@ -56,11 +70,10 @@ class ProfissionalSeeder extends Seeder
                 "celular" => "11988745706",
                 "cnpj" => "05680926000199",
                 "razao_social" => "FOUNDCARE",
-                "coren" => "24155874"
-            ]);
-        }
-        if(!Profissional::where('email', 'arthuralexandredealmeida@gmail.com')->first()){
-            Profissional::create([
+                "coren" => "24155874",
+                "user_id" => 3
+            ],
+            [
                 "name" => "Arthur",
                 "email" => "arthuralexandredealmeida@gmail.com",
                 "cpf" => "47608923893",
@@ -71,11 +84,10 @@ class ProfissionalSeeder extends Seeder
                 "celular" => "11988745706",
                 "cnpj" => "05680926000199",
                 "razao_social" => "FOUNDCARE",
-                "coren" => "24157873"
-            ]);
-        }
-        if(!Profissional::where('email', 'j.vitor.moura.37@gmail.com')->first()){
-            Profissional::create([
+                "coren" => "24157873",
+                "user_id" => 4
+            ],
+            [
                 "name" => "João",
                 "email" => "j.vitor.moura.37@gmail.com",
                 "cpf" => "47608923894",
@@ -86,23 +98,24 @@ class ProfissionalSeeder extends Seeder
                 "celular" => "11988745706",
                 "cnpj" => "05680926000199",
                 "razao_social" => "FOUNDCARE",
-                "coren" => "24154872"
+                "coren" => "24154872",
+                "user_id" => 5
+            ],
+        ];
+
+        foreach ($profissionais as $profissionalData) {
+            // Cria um novo usuário
+            $user = User::create([
+                'name' => $profissionalData['name'],
+                'email' => $profissionalData['email'],
+                'data_nasc' => $profissionalData['data_nasc'], 
+                'cpf' => $profissionalData['cpf'], // Inclua o CPF aqui
+                'password' => bcrypt('senha123'), // Ou outra lógica de senha
+                'id_endereco' => $profissionalData['id_endereco'], // Inclua o id_endereco aqui
             ]);
-        }
-        if(!Profissional::where('email', 'j.vitor.moura.37@gmail.com')->first()){
-            Profissional::create([
-                "name" => "Italo",
-                "email" => "j.vitor.moura.37@gmail.com",
-                "cpf" => "47608923895",
-                "data_nasc" => '29-11-199',
-                "logradouro" => "Rua Inamar N° 25",
-                "bairro" => "Diadema",
-                "cep" => "09970-342",
-                "celular" => "11988745706",
-                "cnpj" => "05680926000199",
-                "razao_social" => "FOUNDCARE",
-                "coren" => "24115871"
-            ]);
+    
+            // Cria o profissional associado ao usuário
+            Profissional::create(array_merge($profissionalData, ['user_id' => $user->id]));
         }
     }
 }

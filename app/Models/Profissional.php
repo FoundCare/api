@@ -10,60 +10,38 @@ class Profissional extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * Tabela associada ao modelo
-     * 
-     * @var string
-     */
     protected $table = 'profissionais';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'cpf',
-        'email',
-        'data_nasc',
-        'logradouro',
-        'bairro',
-        'cep',
-        'celular',
         'cnpj',
         'razao_social',
-        'coren'
+        'status_validacao',
+        'user_id'
     ];
-
-    public function competencias()
-    {
-        return $this->hasMany(Competencias::class);
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function anuncios(): HasMany
+    // Acessores para pegar dados do User diretamente
+    public function getNameAttribute()
     {
-        return $this->hasMany(Anuncio::class, 'id_profissional');
+        return $this->user->name;
     }
 
-    public function historicoDeProfissionais(): HasMany
+    public function getCpfAttribute()
     {
-        return $this->hasMany(HistoricoDeProfissional::class, 'id_profissional');
+        return $this->user->cpf;
     }
 
-    public function especialidade(): HasOne
+    public function getEmailAttribute()
     {
-        return $this->hasOne(Especialidade::class,'id_profissional');
+        return $this->user->email;
     }
 
-    public function formacoes(): HasMany
+    public function getDataNascAttribute()
     {
-        return $this->hasMany(Formacao::class, 'id_profissional');
+        return $this->user->data_nasc;
     }
-
 }
