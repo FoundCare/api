@@ -3,28 +3,40 @@
 namespace Database\Seeders;
 
 use App\Models\Anuncio;
-use App\Models\Profissional;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class AnuncioSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        $faker = Faker::create();
+        Anuncio::create([
+            'id_profissional' => 1,
+            'descricao' => 'Descrição do anúncio 1',
+            'titulo' => 'Título do anúncio 1',
+        ]);
 
-        // Pegando todos os profissionais para associar com anúncios
-        $profissionais = Profissional::all();
+        Anuncio::create([
+            'id_profissional' => 2,
+            'descricao' => 'Descrição do anúncio 2',
+            'titulo' => 'Título do anúncio 2',
+        ]);
 
-        foreach ($profissionais as $profissional) {
-            // Criando entre 1 e 3 anúncios por profissional
-            for ($i = 0; $i < rand(1, 3); $i++) {
-                Anuncio::create([
-                    'titulo' => $faker->sentence(3),
-                    'descricao' => $faker->paragraph,
-                    'id_profissional' => $profissional->id,
-                ]);
-            }
-        }
+        Anuncio::create([
+            'id_profissional' => 3,
+            'descricao' => 'Descrição do anúncio 3',
+            'titulo' => 'Título do anúncio 3',
+        ]);
+
+        Anuncio::create([
+            'id_profissional' => 4,
+            'descricao' => 'Descrição do anúncio 4',
+            'titulo' => 'Título do anúncio 4',
+        ]);
+
+        Anuncio::create([
+            'id_profissional' => 5,
+            'descricao' => 'Descrição do anúncio 5',
+            'titulo' => 'Título do anúncio 5',
+        ]);
     }
 }

@@ -13,10 +13,20 @@ return new class extends Migration
     {
         Schema::create('profissionais', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('cpf')->unique();
+            $table->string('email')->unique();
+            $table->date('data_nasc');
+            $table->string('logradouro');
+            $table->string('bairro');
+            $table->string('cep');
+            $table->string('telefone')->nullable();
+            $table->string('celular');
             $table->string('cnpj');
             $table->string('razao_social');
+            $table->string('coren')->unique();
+            $table->foreignId('user_id')->constrained('users');
             $table->enum('status_validacao', ['pendente', 'negado', 'aprovado'])->default('pendente');
-            $table->foreignId('user_id')->constrained('users')->unique(); // Chave estrangeira para 'users'
             $table->timestamps();
         });
     }

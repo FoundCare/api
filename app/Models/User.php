@@ -13,27 +13,27 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
+
     /**
      * Relacionamento com outras tabelas
      */
     public function enderecos(): HasOne
     {
-        return $this->hasOne(Endereco::class, 'user_id'); // Foreign key padrão 'user_id'
+        return $this->hasOne(Endereco::class, "id_endereco");
     }
-
     public function contatos(): HasOne
     {
-        return $this->hasOne(Contato::class, 'user_id'); // Foreign key padrão 'user_id'
+        return $this->hasOne(Contato::class, "id_contato");
     }
 
     public function pacientes(): HasOne
     {
-        return $this->hasOne(Paciente::class, 'user_id'); // Foreign key padrão 'user_id'
+        return $this->hasOne(Paciente::class, "id_paciente");
     }
 
     public function profissional(): HasOne
     {
-        return $this->hasOne(Profissional::class, 'user_id'); // Corrigido para 'user_id'
+        return $this->hasOne(Profissional::class, "id_profissional");
     }
 
     /**
@@ -47,8 +47,8 @@ class User extends Authenticatable
         'senha',
         'data_nasc',
         'cpf',
-        'id_endereco',
-        'id_contato'
+        "id_endereco",
+        "id_contato"
     ];
 
     /**
@@ -62,12 +62,15 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [ // Corrigido para $casts
-        'email_verified_at' => 'datetime',
-        'senha' => 'hashed',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'senha' => 'hashed',
+        ];
+    }
 }

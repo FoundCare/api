@@ -15,7 +15,7 @@ class Endereco extends Model
         'bairro',
         'cep',
         'cidade',
-        'estado',
+        'estado'
     ];
 
     /**
