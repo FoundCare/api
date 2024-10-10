@@ -18,7 +18,7 @@ class Profissional extends Model
      * @var string
      */
     protected $table = 'profissionais';
-
+    protected $primaryKey = 'id_profissional';
     /**
      * The attributes that are mass assignable.
      *
