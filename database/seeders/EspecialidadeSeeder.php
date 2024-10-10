@@ -14,14 +14,39 @@ class EspecialidadeSeeder extends Seeder
     public function run(): void
     {
         Especialidade::create([
+            "id_profissional" => 1,
             "especialidade" => "Coren",
-            "comprovante" => "215487rs"
+            "comprovante" => "88888rs"
         ]);
 
         Especialidade::create([
+            "id_profissional" => 1,
             "especialidade" => "Coren",
-            "comprovante" => "958874rs"
+            "comprovante" => "88887rs"
         ]);
 
+        Especialidade::create([
+            "id_profissional" => 2,
+            "especialidade" => "Coren",
+            "comprovante" => "99999rs"
+        ]);
+
+        Especialidade::create([
+            "id_profissional" => 2,
+            "especialidade" => "Coren",
+            "comprovante" => "99998rs"
+        ]);
+
+        Especialidade::create([
+            "id_profissional" => 3,
+            "especialidade" => "Coren",
+            "comprovante" => "777777rs"
+        ]);
+
+        Especialidade::create([
+            "id_profissional" => 3,
+            "especialidade" => "Coren",
+            "comprovante" => "777776rs"
+        ]);
     }
 }

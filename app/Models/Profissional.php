@@ -58,9 +58,9 @@ class Profissional extends Model
         return $this->hasMany(HistoricoDeProfissional::class, 'id_profissional');
     }
 
-    public function especialidade(): HasMany
+    public function especialidades(): HasMany
     {
-        return $this->hasMany(Especialidade::class, "id_especialidade");
+        return $this->hasMany(Especialidade::class, "id_profissional");
     }
 
     public function formacoes(): HasMany
