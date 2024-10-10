@@ -2,6 +2,7 @@
 
 use App\Models\Anuncio;
 use App\Models\Paciente;
+use App\Models\Profissional;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +17,6 @@ return new class extends Migration
     {
         Schema::create('historico_de_profissionais', function (Blueprint $table) {
             $table->id("id_historico_profissional");
-            $table->foreignIdFor(Paciente::class, "id_paciente");
-            $table->foreignIdFor(Anuncio::class, "id_anuncio");
             $table->foreignIdFOr(Profissional::class,"id_profissional");
             $table->date("data_contato")->default(Carbon::now()->toDateString());
             $table->timestamps();

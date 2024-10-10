@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profissional;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +19,9 @@ class DatabaseSeeder extends Seeder
             ContatoSeeder::class,
             EnderecoSeeder::class,
             UserSeeder::class,
-            PacienteSeeder::class
+            ProfissionalSeeder::class,
+            PacienteSeeder::class,
+            EspecialidadeSeeder::class
         ];
 
         $this->call($seeders);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,21 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profissionais', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('cpf')->unique();
-            $table->string('email')->unique();
-            $table->date('data_nasc');
-            $table->string('logradouro');
-            $table->string('bairro');
-            $table->string('cep');
-            $table->string('telefone')->nullable();
-            $table->string('celular');
+            $table->id('id_profissional');
+            $table->integer('id_usuario')->unsigned()->unique();
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->string('cnpj');
             $table->string('razao_social');
             $table->string('coren')->unique();
-            $table->foreignId('user_id')->constrained('users');
-            $table->enum('status_validacao', ['pendente', 'negado', 'aprovado'])->default('pendente');
             $table->timestamps();
         });
     }
