@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('formacoes', function (Blueprint $table) {
-            $table->id();
+            $table->id("id_formacao");
             $table->string('formacao');
             $table->text('descricao');
             $table->date('data_inicio');
             $table->date('data_termino')->nullable();
             $table->string('token_certificado')->nullable();
+            $table->integer('id_profissional');
+            $table->foreign('id_profissional')->references('id_profissional')->on('profissionais');
             $table->timestamps();
+            
         });
     }
 

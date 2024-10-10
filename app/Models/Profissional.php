@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profissional extends Model
@@ -56,9 +58,9 @@ class Profissional extends Model
         return $this->hasMany(HistoricoDeProfissional::class, 'id_profissional');
     }
 
-    public function especialidade(): HasOne
+    public function especialidade(): HasMany
     {
-        return $this->hasOne(Especialidade::class,'id_profissional');
+        return $this->hasMany(Especialidade::class, "id_especialidade");
     }
 
     public function formacoes(): HasMany

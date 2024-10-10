@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('especialidades', function (Blueprint $table) {
-            $table->id("id_especialidade");
-            $table->string('especialidade');
-            $table->string('comprovante');
-            $table->timestamps();
+        Schema::table('especialidades', function (Blueprint $table) {
+            $table->integer("id_profissional")->unsigned();
+            $table->foreign("id_profissional")->references("id_profissional")->on("profissionais");
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('especialidades');
+        Schema::table('especialidades', function (Blueprint $table) {
+            //
+        });
     }
 };

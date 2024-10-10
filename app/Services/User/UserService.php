@@ -7,6 +7,7 @@ use App\Interfaces\Contato\ContatoServiceInterface;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
 use App\Interfaces\User\UserServiceInterface;
 use App\Models\User;
+use Error;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -64,13 +65,13 @@ class UserService implements UserServiceInterface
             
             DB::commit();
 
-            return response()->json(new UserResource($user));
+            return new UserResource($user);
 
         } catch(Exception $e){
             $data = [
                 "error" => $e->getMessage()
             ];
-            return response()->json(new UserResource($data), 404);
+            return new UserResource($data);
         }
         
     }
@@ -95,18 +96,20 @@ class UserService implements UserServiceInterface
             "senha" => $userRequest['senha'] ?? $user->senha
         ]);
 
-        return response()->json(new UserResource($data), 201);
+        return new UserResource($data);
 
         } catch(ModelNotFoundException $e) {
+
             $data = [
                 "error" => $e->getMessage()
             ];
-            return response()->json(new UserResource($data), 404);
+            throw new Error($e->getMessage());
+
         } catch(Exception $e){
             $data = [
                 "error" => $e->getMessage()
             ];
-            return response()->json(new UserResource($data), 404);
+            throw new Error($e->getMessage());
         }
     }
 
