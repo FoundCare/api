@@ -1,0 +1,35 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#5086
+    [34mall[39m: [
+      [34;4mApp\Models\Profissional[39;24m {#5087
+        [34mid_profissional[39m: [35m1[39m,
+        [34mid_usuario[39m: [35m1[39m,
+        [34mcnpj[39m: "[32m99999999000199[39m",
+        [34mrazao_social[39m: "[32mFOUNDCARE[39m",
+        [34mcoren[39m: "[32m2415876[39m",
+        [34mcreated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mupdated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mdeleted_at[39m: [36mnull[39m,
+      },
+      [34;4mApp\Models\Profissional[39;24m {#5088
+        [34mid_profissional[39m: [35m2[39m,
+        [34mid_usuario[39m: [35m2[39m,
+        [34mcnpj[39m: "[32m05680926000199[39m",
+        [34mrazao_social[39m: "[32mFOUNDCARE[39m",
+        [34mcoren[39m: "[32m24154875[39m",
+        [34mcreated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mupdated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mdeleted_at[39m: [36mnull[39m,
+      },
+      [34;4mApp\Models\Profissional[39;24m {#5089
+        [34mid_profissional[39m: [35m3[39m,
+        [34mid_usuario[39m: [35m3[39m,
+        [34mcnpj[39m: "[32m88888888000188[39m",
+        [34mrazao_social[39m: "[32mFOUNDCARE[39m",
+        [34mcoren[39m: "[32m24157873[39m",
+        [34mcreated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mupdated_at[39m: "[32m2024-10-11 15:37:14[39m",
+        [34mdeleted_at[39m: [36mnull[39m,
+      },
+    ],
+  }
+

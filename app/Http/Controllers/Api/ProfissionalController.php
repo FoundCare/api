@@ -21,27 +21,28 @@ class ProfissionalController extends Controller
      * 
      */
     public function index(): JsonResponse
-    {   
-        $profissional = Profissional::get();
-        $status = 200;
+{   
+    $profissionais = Profissional::get();
+    $status = 200;
 
-        if(count($profissional) > 0){
-            $body = [
-                true,
-                "Usuários encontrados",
-                $profissional
-            ];
-        } else {
-            $body = [
-                true,
-                "Nenhum usuário encontrado",
-                array()
-            ]; 
-            $status = 404;
-        }
-
-        return $this->sendResponse($body, $status);
+    if (count($profissionais) > 0) {
+        $body = [
+            'success' => true,
+            'message' => "Usuários encontrados",
+            'data' => $profissionais
+        ];
+    } else {
+        $body = [
+            'success' => false,
+            'message' => "Nenhum usuário encontrado",
+            'data' => []
+        ]; 
+        $status = 404;
     }
+
+    return response()->json($body, $status);
+}
+
 
     /**
      * Este método é responsável por trazer apenas um resultado
@@ -52,26 +53,27 @@ class ProfissionalController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $profissional = Profissional::where('id', $id)->get();
-        $status = Response::HTTP_FOUND;
-
-        if(count($profissional) <= 0){
+        $profissional = Profissional::find($id);
+        $status = Response::HTTP_OK;
+    
+        if (!$profissional) {
             $body = [
-                false,
-                "Não encontrado!",
-                []
+                'success' => false,
+                'message' => "Não encontrado!",
+                'data' => []
             ];
             $status = Response::HTTP_NOT_FOUND;
         } else {
             $body = [
-                true,
-                "Profissional encontrado!",
-                $profissional
+                'success' => true,
+                'message' => "Profissional encontrado!",
+                'data' => $profissional
             ];
         }
-
-        return $this->sendResponse($body, $status);
+    
+        return response()->json($body, $status);
     }
+    
 
     /**
      * Este método é responsável por gravar um profissional no banco
@@ -81,52 +83,33 @@ class ProfissionalController extends Controller
      */
     public function store(ProfissionalStoreRequest $request): JsonResponse
     {
-        // Iniciar a transação
         DB::beginTransaction();
-
-        try{
-            $profissional = Profissional::create([
-                "name" => $request->name,
-                "cpf" => $request->cpf,
-                "email" => $request->email,
-                "data_nasc" => $request->data_nasc,
-                "logradouro" => $request->logradouro,
-                "bairro" => $request->bairro,
-                "cep" => $request->cep,
-                "telefone" => $request->telefone,
-                "celular" => $request->celular,
-                "cnpj" => $request->cnpj,
-                "razao_social" => $request->razao_social,
-                "coren" => $request->coren
-            ]);
-
-            DB::commit();
-
-            $body = [
-                true,
-                "Profissional cadastrado!",
-                $profissional
-            ];
-
-            return $this->sendResponse($body, 201);
-
-        } catch(Exception $e){
-            // Operação não concluída com êxito
-            DB::rollBack();
-
-            $body = [
-                false, 
-                "Profissional não cadastrado", 
-                [$e->getMessage()]
-            ];
+        try {
+            $profissional = Profissional::create($request->all());
     
-            return $this->sendResponse($body, 403);
+            DB::commit();
+    
+            $body = [
+                'success' => true,
+                'message' => "Profissional cadastrado!",
+                'data' => $profissional
+            ];
+            $status = Response::HTTP_CREATED;
+    
+        } catch (Exception $e) {
+            DB::rollBack();
+    
+            $body = [
+                'success' => false,
+                'message' => "Profissional não cadastrado",
+                'error' => $e->getMessage()
+            ];
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
-
-        return [
-            "success" => "it's working!"
-        ];
+    
+        return response()->json($body, $status);
     }
+    
 
     /**
      * Este método é responsável por editar um usuário existente no banco de dados 
@@ -137,80 +120,73 @@ class ProfissionalController extends Controller
      * @return JsonResponse
      */
     public function update(ProfissionalEditRequest $request, Profissional $profissional): JsonResponse
-    {
-        // Iniciar transação
-        DB::beginTransaction();
-        try{
-           
-            // Editar o registro no banco
-            $profissional->update([
-                "name" => $request->name ? : $profissional->name,
-                "cpf" => $request->cpf ? : $profissional->cpf,
-                "email" => $request->email ? : $profissional->email,
-                "logradouro" => $request->logradouro ? : $profissional->logradouro,
-                "bairro" => $request->bairro ? : $profissional->bairro,
-                "cep" => $request->cep ? : $profissional->cep,
-                "telefone" => $request->cep ? : $profissional->telefone,
-                "cnpj" => $request->cnpj ? : $profissional->cnpj
-            ]);
-            
-            // Commita as alterações concluídas
-            DB::commit();
+{
+    DB::beginTransaction();
+    try {
+        $profissional->update($request->only([
+            'name', 'cpf', 'email', 'logradouro', 'bairro', 'cep', 'telefone', 'cnpj'
+        ]));
 
-            $body = [
-                true,
-                "Usuário editado com sucesso!",
-                $profissional
-            ];
+        DB::commit();
 
-            return $this->sendResponse($body, 201);
+        $body = [
+            'success' => true,
+            'message' => "Usuário editado com sucesso!",
+            'data' => $profissional
+        ];
+        $status = Response::HTTP_OK;
 
-        } catch(Exception $e){
+    } catch (Exception $e) {
+        DB::rollBack();
 
-            // Operação não foi concluída
-            DB::rollBack();
-
-            $body = [
-                false,
-                "Usuário não editado",
-                $e
-            ];
-
-            return $this->sendResponse($body, 400);
-        }
+        $body = [
+            'success' => false,
+            'message' => "Usuário não editado",
+            'error' => $e->getMessage()
+        ];
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
     }
+
+    return response()->json($body, $status);
+}
+
 
     /**
      * Este método é responsável por aplicar um softDelete no usuário existente no banco de dados
      */
     public function destroy(string $id): JsonResponse
-    {
-        try{
-            $profissional = Profissional::where("id", $id)->first();
-            $status = Response::HTTP_FOUND;
-            $body = [
-                true,
-                "Profissional deletado com sucesso!",
-                $profissional
-            ];
+{
+    try {
+        $profissional = Profissional::find($id);
 
-            if(!isset($profissional)){
-                $body[1] = "Profissional não encontrado!";
-            } else {
-                $profissional->delete();
-            }
-
-            return $this->sendResponse($body, $status);
-            
-        } catch(Exception $e){
-            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        if (!$profissional) {
             $body = [
-                false,
-                "Usuário não deletado!",
-                []
+                'success' => false,
+                'message' => "Profissional não encontrado!",
+                'data' => []
             ];
-            return $this->sendResponse($body, $status);
+            $status = Response::HTTP_NOT_FOUND;
+        } else {
+            $profissional->delete();
+
+            $body = [
+                'success' => true,
+                'message' => "Profissional deletado com sucesso!",
+                'data' => $profissional
+            ];
+            $status = Response::HTTP_OK;
         }
-        
+
+    } catch (Exception $e) {
+        $body = [
+            'success' => false,
+            'message' => "Erro ao deletar profissional!",
+            'error' => $e->getMessage()
+        ];
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
     }
+
+    return response()->json($body, $status);
+}
+
 }
