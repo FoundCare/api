@@ -10,7 +10,6 @@ class ProfissionalService implements ProfissionalServiceInterface
     public function index()
     {
         $profissionais = Profissional::all();
-        dd($profissionais); // Verifica o que está sendo retornado
         return $profissionais;
     }
 

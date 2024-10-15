@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ProfissionalEditRequest;
 use App\Http\Requests\Api\ProfissionalStoreRequest;
 use App\Services\Profissional\ProfissionalService; 
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 

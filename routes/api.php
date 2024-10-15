@@ -30,5 +30,5 @@ Route::delete("/pacientes/{id}", [PacienteController::class, 'destroy']);
 Route::get('/profissionais', [ProfissionalController::class, 'index']);
 Route::get('/profissionais/{profissional}', [ProfissionalController::class, 'show']);
 Route::post('/profissionais', [ProfissionalController::class, 'store']);
-Route::patch('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
+Route::put('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
 Route::delete('/profissionais/{profissional}', [ProfissionalController::class, 'destroy']);
