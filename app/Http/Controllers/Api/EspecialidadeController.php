@@ -40,4 +40,9 @@ class EspecialidadeController extends Controller
         ];
         return $this->especialidadeService->update($data, $especialidade);
     }
+
+    public function destroy(Profissional $profissional, Especialidade $especialidade)
+    {
+        return $this->especialidadeService->destroy($especialidade);
+    }
 }

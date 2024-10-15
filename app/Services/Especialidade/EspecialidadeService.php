@@ -12,18 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class EspecialidadeService implements EspecialidadeServiceInterface
 {
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     public function show($id)
     {
-        try{
+        try {
             $especialidade = Especialidade::get()->where("id_profissional", $id);
 
             return new EspecialidadeResource($especialidade);
-        } catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             $data = [
                 "error" => $e->getMessage()
             ];
@@ -32,9 +29,9 @@ class EspecialidadeService implements EspecialidadeServiceInterface
     }
 
     public function store($data)
-    {   
+    {
         DB::beginTransaction();
-        try{
+        try {
             $especialidade = Especialidade::create([
                 "id_profissional" => $data["id_profissional"],
                 "especialidade" => $data["especialidade"],
@@ -49,7 +46,7 @@ class EspecialidadeService implements EspecialidadeServiceInterface
             ];
 
             return response()->json(new EnderecoResource($body), 201);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             $body = [
                 "status" => false,
@@ -63,15 +60,15 @@ class EspecialidadeService implements EspecialidadeServiceInterface
 
     public function update($data, $especialidade)
     {
-        if($data['id_profissional'] !== $especialidade->id_profissional){
-            
+        if ($data['id_profissional'] !== $especialidade->id_profissional) {
+
             $body = [
                 "status" => false,
                 "message" => [
                     "error" => "Operação não permitida para esse usuário"
                 ]
             ];
-            
+
             return response()->json($body, 403);
         }
 
@@ -89,8 +86,7 @@ class EspecialidadeService implements EspecialidadeServiceInterface
             ];
 
             return response()->json($body, 200);
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $body = [
                 'status' => false,
                 "message" => [
@@ -102,8 +98,26 @@ class EspecialidadeService implements EspecialidadeServiceInterface
         }
     }
 
-    public function destroy($id)
+    public function destroy($especialidade)
     {
-        //
+        try {
+            
+            $especialidade->delete();
+
+            $body = [
+                "status" => true,
+                "message" => "Especialidade deletada com sucesso!"
+            ];
+            return response()->json($body, 200);
+        } catch (Exception $e) {
+            $body = [
+                "status" => false,
+                "message" => [
+                    "error" => $e->getMessage()
+                ]
+            ];
+
+            return response()->json($body, 500);
+        }
     }
 }
