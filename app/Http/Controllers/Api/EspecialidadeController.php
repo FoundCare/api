@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Especialidade\EspecialidadeRequest;
 use App\Interfaces\Especialidade\EspecialidadeServiceInterface;
-use Illuminate\Http\Request;
 
 class EspecialidadeController extends Controller
 {
@@ -17,8 +17,14 @@ class EspecialidadeController extends Controller
         return $this->especialidadeService->show($id);
     }
 
-    public function store(Request $request)
+    public function store(EspecialidadeRequest $request, $id)
     {
-        return $this->especialidadeService->store($request->only('especialidade', 'comprovante'));
+        $data = [
+            "id_profissional" => $id,
+            "especialidade" => $request->get('especialidade'),
+            "comprovante" => $request->get('comprovante')
+        ];
+
+        return $this->especialidadeService->store($data);
     }
 }

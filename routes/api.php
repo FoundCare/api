@@ -16,8 +16,7 @@ Route::patch('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 /** rotas de teste */
-Route::get('/especialidade/{id}', [EspecialidadeController::class, 'show']);
-Route::post('/especialidade', [EspecialidadeController::class, 'store']);
+
 
 /**ROTAS DOS PACIENTES */
 Route::get("/pacientes", [PacienteController::class, 'index']);
@@ -25,6 +24,10 @@ Route::get("/pacientes/{id}", [PacienteController::class, 'show']);
 Route::post("/pacientes", [PacienteController::class, 'store']);
 Route::patch("/pacientes/{id}", [PacienteController::class, 'update']);
 Route::delete("/pacientes/{id}", [PacienteController::class, 'destroy']);
+
+/** ROTAS DE ESPECIALIDADE */
+Route::get('/profissional/{id}/especialidade', [EspecialidadeController::class, 'show']);
+Route::post('/profissional/{id}/especialidade', [EspecialidadeController::class, 'store']);
 
 /** ROTAS DO PROFISSIONAL*/
 Route::get('/profissionais', [ProfissionalController::class, 'index']);

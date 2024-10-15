@@ -19,10 +19,9 @@ class EspecialidadeService implements EspecialidadeServiceInterface
     public function show($id)
     {
         try{
-            $especialidade = Especialidade::findOrFail($id);
+            $especialidade = Especialidade::get()->where("id_profissional", $id);
 
             return new EspecialidadeResource($especialidade);
-
         } catch(ModelNotFoundException $e){
             $data = [
                 "error" => $e->getMessage()
@@ -36,8 +35,9 @@ class EspecialidadeService implements EspecialidadeServiceInterface
         DB::beginTransaction();
         try{
             $especialidade = Especialidade::create([
-                "especialidade" => "COREN",
-                "comprovante" => "259875874"
+                "id_profissional" => $data["id_profissional"],
+                "especialidade" => $data["especialidade"],
+                "comprovante" => $data["comprovante"]
             ]);
             DB::commit();
 
