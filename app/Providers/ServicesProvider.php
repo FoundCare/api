@@ -14,6 +14,7 @@ use App\Services\Especialidade\EspecialidadeService;
 use App\Services\Formacao\FormacaoService;
 use App\Services\Paciente\PacienteService;
 use App\Services\User\UserService;
+use App\Services\User\ProfissionalService;
 use Illuminate\Support\ServiceProvider;
 
 class ServicesProvider extends ServiceProvider
@@ -26,9 +27,11 @@ class ServicesProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(ContatoServiceInterface::class, ContatoService::class);
         $this->app->bind(EnderecoServiceInterface::class, EnderecoService::class);
+        $this->app->bind(ProfissionalServiceInterface::class, ProfissionalService::class);
         $this->app->bind(PacienteServiceInterface::class, PacienteService::class);
         $this->app->bind(FormacaoServiceInterface::class, FormacaoService::class);
         $this->app->bind(EspecialidadeServiceInterface::class, EspecialidadeService::class);
+        
     }
 
     /**
