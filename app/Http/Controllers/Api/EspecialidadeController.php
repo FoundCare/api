@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Especialidade\EspecialidadeRequest;
+use App\Http\Requests\Api\Especialidade\EspecialidadeUpdateRequest;
 use App\Interfaces\Especialidade\EspecialidadeServiceInterface;
+use App\Models\Especialidade;
+use App\Models\Profissional;
 
 class EspecialidadeController extends Controller
 {
@@ -26,5 +29,15 @@ class EspecialidadeController extends Controller
         ];
 
         return $this->especialidadeService->store($data);
+    }
+
+    public function update(EspecialidadeUpdateRequest $request, Profissional $profissional, Especialidade $especialidade)
+    {
+        $data = [
+            "especialidade" => $request->get('especialidade'),
+            "comprovante" => $request->get('comprovante'),
+            "id_profissional" => $profissional->id_profissional
+        ];
+        return $this->especialidadeService->update($data, $especialidade);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services\Especialidade;
 
+use App\Http\Resources\EnderecoResource;
 use App\Http\Resources\EspecialidadeResource;
 use App\Interfaces\Especialidade\EspecialidadeServiceInterface;
 use App\Models\Especialidade;
@@ -41,16 +42,64 @@ class EspecialidadeService implements EspecialidadeServiceInterface
             ]);
             DB::commit();
 
-            return new EspecialidadeResource($especialidade);
+            $body = [
+                "status" => true,
+                "message" => "Especialidade cadastrada com sucesso!",
+                "data" => $especialidade
+            ];
+
+            return response()->json(new EnderecoResource($body), 201);
         } catch(Exception $e){
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            $body = [
+                "status" => false,
+                "message" => [
+                    "error" => $e->getMessage()
+                ]
+            ];
+            return response()->json($body, 404);
         }
     }
 
-    public function update($data, $id)
+    public function update($data, $especialidade)
     {
-        //
+        if($data['id_profissional'] !== $especialidade->id_profissional){
+            
+            $body = [
+                "status" => false,
+                "message" => [
+                    "error" => "Operação não permitida para esse usuário"
+                ]
+            ];
+            
+            return response()->json($body, 403);
+        }
+
+        try {
+
+            $especialidade->update([
+                "especialidade" => $data['especialidade'],
+                "comprovante" => $data['comprovante']
+            ]);
+
+            $body = [
+                "status" => true,
+                "message" => "Especialidade editada com sucesso!",
+                "data" => $especialidade
+            ];
+
+            return response()->json($body, 200);
+
+        } catch (Exception $e){
+            $body = [
+                'status' => false,
+                "message" => [
+                    "error" => $e->getMessage()
+                ]
+            ];
+
+            return response()->json(new EspecialidadeResource($body), 404);
+        }
     }
 
     public function destroy($id)

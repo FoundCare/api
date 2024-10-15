@@ -26,8 +26,9 @@ Route::patch("/pacientes/{id}", [PacienteController::class, 'update']);
 Route::delete("/pacientes/{id}", [PacienteController::class, 'destroy']);
 
 /** ROTAS DE ESPECIALIDADE */
-Route::get('/profissional/{id}/especialidade', [EspecialidadeController::class, 'show']);
-Route::post('/profissional/{id}/especialidade', [EspecialidadeController::class, 'store']);
+Route::get('/profissionais/{id}/especialidade', [EspecialidadeController::class, 'show']);
+Route::post('/profissionais/{id}/especialidade', [EspecialidadeController::class, 'store']);
+Route::patch('/profissionais/{profissional}/especialidade/{especialidade}', [EspecialidadeController::class, 'update']);
 
 /** ROTAS DO PROFISSIONAL*/
 Route::get('/profissionais', [ProfissionalController::class, 'index']);
