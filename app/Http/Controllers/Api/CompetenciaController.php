@@ -3,17 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\Competencia\CompetenciaInterfaceService;
 use Illuminate\Http\Request;
 use App\Models\Competencias;
+use App\Models\Profissional;
 
 class CompetenciaController extends Controller
 {
+    public function __construct(
+        private CompetenciaInterfaceService $competenciaService
+    )
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Competencias::all(); // Retorna todas as competências
+        return $this->competenciaService->index();
     }
 
     /**
@@ -34,10 +42,9 @@ class CompetenciaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Profissional $profissional)
     {
-        $competencia = Competencias::findOrFail($id);
-        return response()->json($competencia);
+        return $this->competenciaService->show($profissional->id_profissional);
     }
 
     /**
