@@ -10,11 +10,7 @@ use App\Http\Requests\Api\UserStoreRequest;
 use App\Http\Requests\Contato\ContatoEditRequest;
 use App\Http\Requests\Contato\ContatoRequest;
 use App\Http\Requests\Endereco\EnderecoUpdateRequest;
-use App\Http\Resources\PacienteResource;
 use App\Interfaces\Paciente\PacienteServiceInterface;
-use App\Models\Paciente;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PacienteController extends Controller
 {
