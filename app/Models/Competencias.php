@@ -10,8 +10,16 @@ class Competencias extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_profissional',
         'competencia'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $primaryKey = 'id_competencia';
 
     public function profissional()
     {

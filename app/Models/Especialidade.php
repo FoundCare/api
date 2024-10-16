@@ -11,8 +11,16 @@ class Especialidade extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome',
+        'id_profissional',
+        'especialidade',
         'comprovante'
+    ];
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+        "id_profissional",
+        "id_especialidade"
     ];
 
     protected $primaryKey = "id_especialidade";

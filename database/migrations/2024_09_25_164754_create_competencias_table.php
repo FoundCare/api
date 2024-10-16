@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('competencias', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_competencia')->autoIncrement();
             $table->string('competencia');
-            $table->unsignedBigInteger('profissional_id');
-            $table->foreign('profissional_id')->references('id')->on('profissionais')->onDelete('cascade');
+            $table->unsignedBigInteger('id_profissional');
+            $table->foreign('id_profissional')->references('id_profissional')->on('profissionais');
             $table->timestamps();
         });
     }

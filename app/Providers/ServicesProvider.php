@@ -7,14 +7,15 @@ use App\Interfaces\Endereco\EnderecoServiceInterface;
 use App\Interfaces\Especialidade\EspecialidadeServiceInterface;
 use App\Interfaces\Formacao\FormacaoServiceInterface;
 use App\Interfaces\Paciente\PacienteServiceInterface;
+use App\Interfaces\Profissional\ProfissionalServiceInterface;
 use App\Interfaces\User\UserServiceInterface;
 use App\Services\Contato\ContatoService;
 use App\Services\Endereco\EnderecoService;
 use App\Services\Especialidade\EspecialidadeService;
 use App\Services\Formacao\FormacaoService;
 use App\Services\Paciente\PacienteService;
+use App\Services\Profissional\ProfissionalService;
 use App\Services\User\UserService;
-use App\Services\User\ProfissionalService;
 use Illuminate\Support\ServiceProvider;
 
 class ServicesProvider extends ServiceProvider

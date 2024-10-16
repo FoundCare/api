@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\ContatoController;
-use App\Http\Controllers\Api\EnderecoController;
+use App\Http\Controllers\Api\CompetenciaController;
 use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\UserController;
@@ -14,10 +13,6 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::patch('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
-/** rotas de teste */
-Route::get('/especialidade/{id}', [EspecialidadeController::class, 'show']);
-Route::post('/especialidade', [EspecialidadeController::class, 'store']);
 
 /**ROTAS DOS PACIENTES */
 Route::get("/pacientes", [PacienteController::class, 'index']);
@@ -32,3 +27,12 @@ Route::get('/profissionais/{profissional}', [ProfissionalController::class, 'sho
 Route::post('/profissionais', [ProfissionalController::class, 'store']);
 Route::put('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
 Route::delete('/profissionais/{profissional}', [ProfissionalController::class, 'destroy']);
+
+/** ROTAS DE ESPECIALIDADE */
+Route::get('/profissionais/{id}/especialidade', [EspecialidadeController::class, 'show']);
+Route::post('/profissionais/{id}/especialidade', [EspecialidadeController::class, 'store']);
+Route::patch('/profissionais/{profissional}/especialidade/{especialidade}', [EspecialidadeController::class, 'update']);
+Route::delete('/profissionais/{profissional}/especialidade/{especialidade}', [EspecialidadeController::class, 'destroy']);
+
+/** ROTAS DE COMPETÊNCIA */
+Route::get('/profissionais/{profissional}/competencia', [CompetenciaController::class, 'index']);
