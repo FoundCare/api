@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Interfaces\Formacao\FormacaoServiceInterface;
 use Illuminate\Http\Request;
 
 class FormacaoController extends Controller
