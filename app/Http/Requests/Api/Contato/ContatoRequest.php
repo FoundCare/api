@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Contato;
+namespace App\Http\Requests\Api\Contato;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

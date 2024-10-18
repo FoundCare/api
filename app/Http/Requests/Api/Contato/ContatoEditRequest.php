@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Contato;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\Contato\ContatoRequest;
 
-class UserEditRequest extends UserStoreRequest
+class ContatoEditRequest extends ContatoRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,25 +22,10 @@ class UserEditRequest extends UserStoreRequest
     public function rules(): array
     {
         $rules = parent::rules();
-        $rules['name'] = [
+        $rules['celular'] = [
             'nullable',
-            'min:6',
-            'max:20'
+            'max:15'
         ];
-        $rules['email'] = [
-            'nullable',
-            'email',
-        ];
-        $rules['cpf'] = [
-            'nullable',
-            'max:12'
-        ];
-        $rules['password'] = [
-            'nullable',
-            'min:6',
-            'max:20'
-        ];
-
         return $rules;
     }
 }
