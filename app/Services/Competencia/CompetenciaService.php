@@ -65,13 +65,21 @@ class CompetenciaService implements CompetenciaInterfaceService
         }
     }
 
-    public function update($data, $id)
+    public function update($data, $competencia) 
     {
-        
+        $competencia->update([
+            "competencia" => $data['competencia']
+        ]);
+
+        $data = [
+            "status" => true,
+            "message" => "Competência editada com sucesso!"
+        ];
+        return response()->json(new CompetenciaResource($data), 200);
     }
 
-    public function destroy($id)
+    public function destroy($competencia)
     {
-
+    
     }
 }
