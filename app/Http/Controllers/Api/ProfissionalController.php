@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ProfissionalEditRequest;
-use App\Http\Requests\Api\ProfissionalStoreRequest;
+use App\Http\Requests\Api\Profissional\ProfissionalEditRequest;
+//use App\Http\Requests\Api\Profissional\ProfissionalStoreRequest;
 use App\Services\Profissional\ProfissionalService; 
 use Exception;
 use Illuminate\Http\Request;

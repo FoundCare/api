@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Competencia\CompetenciaRequest;
 use App\Interfaces\Competencia\CompetenciaInterfaceService;
-use Illuminate\Http\Request;
 use App\Models\Competencias;
 use App\Models\Profissional;
 
@@ -27,16 +27,14 @@ class CompetenciaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CompetenciaRequest $request, Profissional $profissional)
     {
-        // Validação dos dados recebidos
-        $validatedData = $request->validate([
-            'competencia' => 'required|string|max:255',
-        ]);
-
-        // Criação da nova competência
-        $competencia = Competencias::create($validatedData);
-        return response()->json($competencia, 201); // Retorna a competência criada com status 201
+        $data = [
+            "competencia" => $request->get('competencia'),
+            "id_profissional" => $profissional->id_profissional
+        ];
+        return $this->competenciaService->store($data);
+        
     }
 
     /**
@@ -50,28 +48,30 @@ class CompetenciaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CompetenciaRequest $request, Profissional $profissional, Competencias $competencia)
     {
-        $competencia = Competencias::findOrFail($id);
-
-        // Validação dos dados recebidos
-        $validatedData = $request->validate([
-            'competencia' => 'required|string|max:255',
-        ]);
-
-        // Atualiza a competência
-        $competencia->update($validatedData);
-        return response()->json($competencia);
+        $data = [
+            "competencia" => $request->get('competencia'),
+            "id_profissional" => $profissional->id_profissional
+        ];
+        return $this->competenciaService->update($data, $competencia);
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Profissional $profissional, Competencias $competencia)
     {
-        $competencia = Competencias::findOrFail($id);
-        $competencia->delete();
-
-        return response()->json(null, 204); // Retorna 204 No Content
+        if($profissional->id_profissional !== $competencia->id_profissional){
+            $data = [
+                "status" => false,
+                "message" => [
+                    "error" => "Seu usuário não pode realizar essa requisição"
+                ]
+            ];
+            return response()->json($data, 401);
+        }
+        return $this->competenciaService->destroy($competencia->id_competencia);
     }
 }
