@@ -35,4 +35,7 @@ Route::patch('/profissionais/{profissional}/especialidade/{especialidade}', [Esp
 Route::delete('/profissionais/{profissional}/especialidade/{especialidade}', [EspecialidadeController::class, 'destroy']);
 
 /** ROTAS DE COMPETÊNCIA */
-Route::get('/profissionais/{profissional}/competencia', [CompetenciaController::class, 'index']);
+Route::get('/profissionais/{profissional}/competencia', [CompetenciaController::class, 'show']);
+Route::post('/profissionais/{profissional}/competencia', [CompetenciaController::class, 'store']);
+Route::patch('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'update']);
+Route::delete('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'destroy']);

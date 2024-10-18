@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\UserEditRequest;
-use App\Http\Requests\Api\UserStoreRequest;
-use App\Http\Requests\Contato\ContatoRequest;
+use App\Http\Requests\Api\User\UserEditRequest;
+use App\Http\Requests\Api\User\UserStoreRequest;
+use App\Http\Requests\Api\Contato\ContatoRequest;
 use App\Http\Requests\Endereco\EnderecoRequest;
 use App\Http\Requests\Endereco\EnderecoUpdateRequest;
 use App\Interfaces\User\UserServiceInterface;
