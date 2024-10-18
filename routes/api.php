@@ -39,3 +39,10 @@ Route::get('/profissionais/{profissional}/competencia', [CompetenciaController::
 Route::post('/profissionais/{profissional}/competencia', [CompetenciaController::class, 'store']);
 Route::patch('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'update']);
 Route::delete('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'destroy']);
+
+/** ROTAS DE FORMAÇÃO */
+Route::get('/formacoes', [FormacaoController::class, 'index']);
+Route::get('/formacoes/{id}', [FormacaoController::class, 'show']);
+Route::post('/formacoes', [FormacaoController::class, 'store']);
+Route::put('/formacoes/{id}', [FormacaoController::class, 'update']);
+Route::delete('/formacoes/{id}', [FormacaoController::class, 'destroy']);

@@ -21,13 +21,19 @@ class FormacaoService implements FormacaoServiceInterface
 
     }
 
-    public function update($data, $id)
+    public function update($request, $id)
     {
+        $formacao = Formacao::findOrFail($id);
+        $formacao->update($request->all());
 
+        return $formacao;
     }
 
     public function destroy($id)
     {
+        $formacao = Formacao::findOrFail($id);
+        $formacao->delete();
 
+        return response()->json(['message' => 'Formação deletada com sucesso.']);
     }
 }
