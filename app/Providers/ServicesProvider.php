@@ -35,6 +35,8 @@ class ServicesProvider extends ServiceProvider
         $this->app->bind(FormacaoServiceInterface::class, FormacaoService::class);
         $this->app->bind(EspecialidadeServiceInterface::class, EspecialidadeService::class);
         $this->app->bind(CompetenciaInterfaceService::class, CompetenciaService::class);
+        $this->app->bind(FormacaoServiceInterface::class, FormacaoService::class);
+
     }
 
     /**
