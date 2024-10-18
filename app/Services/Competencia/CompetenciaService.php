@@ -6,6 +6,7 @@ use App\Http\Resources\CompetenciaResource;
 use App\Interfaces\Competencia\CompetenciaInterfaceService;
 use App\Models\Competencias;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 class CompetenciaService implements CompetenciaInterfaceService
@@ -78,8 +79,27 @@ class CompetenciaService implements CompetenciaInterfaceService
         return response()->json(new CompetenciaResource($data), 200);
     }
 
-    public function destroy($competencia)
+    public function destroy($id)
     {
-    
+        
+        try{
+            $competencia = Competencias::findOrFail($id);
+
+            $competencia->delete();
+            $data = [
+                "status" => true,
+                "message" => "Competência excluida com sucesso!"
+            ];
+
+            return response()->json(new CompetenciaResource($data), 200);
+        } catch(ModelNotFoundException $e){
+            $data = [
+                "status" => false,
+                "message" => [
+                    "error" => "Competência não encontrado!"
+                ]
+            ];
+            return response()->json(new CompetenciaResource($data), 404);
+        }
     }
 }
