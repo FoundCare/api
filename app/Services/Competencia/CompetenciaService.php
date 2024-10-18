@@ -6,6 +6,7 @@ use App\Http\Resources\CompetenciaResource;
 use App\Interfaces\Competencia\CompetenciaInterfaceService;
 use App\Models\Competencias;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class CompetenciaService implements CompetenciaInterfaceService
 {
@@ -40,12 +41,33 @@ class CompetenciaService implements CompetenciaInterfaceService
 
     public function store($data)
     {
+        try{
+            DB::beginTransaction();
+            $competencia = Competencias::create([
+                "competencia" => $data['competencia'], 
+                "id_profissional" => $data['id_profissional']
+            ]);
+            DB::commit();
+            $data = [
+                "status" => true,
+                "message" => "Competência cadastrada!"
+            ];
+            return response()->json(new CompetenciaResource($data), 201);
 
+        } catch(Exception $e){
+            $data = [
+                "status" => false,
+                "message" => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response()->json(new CompetenciaResource($data), 404);
+        }
     }
 
     public function update($data, $id)
     {
-
+        
     }
 
     public function destroy($id)
