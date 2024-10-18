@@ -19,6 +19,7 @@ use App\Services\Paciente\PacienteService;
 use App\Services\Profissional\ProfissionalService;
 use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class ServicesProvider extends ServiceProvider
 {
@@ -42,6 +43,7 @@ class ServicesProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+        Passport::hashClientSecrets();
     }
 }
