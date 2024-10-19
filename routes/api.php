@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EspecialidadeController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfissionalController;
+use App\Http\Controllers\Api\FormacaoController;
 use Illuminate\Support\Facades\Route;
 
 /** ROTAS DOS USUÁRIOS */
@@ -41,6 +42,7 @@ Route::patch('/profissionais/{profissional}/competencia/{competencia}', [Compete
 Route::delete('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'destroy']);
 
 /** ROTAS DE FORMAÇÃO */
+Route::get('/formacoes/profissional/{id}', [FormacaoController::class, 'getByProfissional']);
 Route::get('/formacoes', [FormacaoController::class, 'index']);
 Route::get('/formacoes/{id}', [FormacaoController::class, 'show']);
 Route::post('/formacoes', [FormacaoController::class, 'store']);

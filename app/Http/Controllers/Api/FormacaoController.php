@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 class FormacaoController extends Controller
-{
+{   
     protected $formacaoService;
 
     public function __construct(FormacaoServiceInterface $formacaoService)
     {
         $this->formacaoService = $formacaoService;
+    }   
+
+    public function getByProfissional($id_profissional)
+    {
+        return response()->json([
+            'data' => $this->formacaoService->getByProfissional($id_profissional),
+        ]);
     }
 
     // Listar todas as formações
@@ -34,6 +41,7 @@ class FormacaoController extends Controller
             'data_inicio' => 'required|date',
             'data_termino' => 'nullable|date|after_or_equal:data_inicio',
             'token_certificado' => 'nullable|string',
+            
         ]);
 
         return $this->formacaoService->store($data);

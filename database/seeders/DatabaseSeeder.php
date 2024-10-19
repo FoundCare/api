@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             ProfissionalSeeder::class,
             PacienteSeeder::class,
             EspecialidadeSeeder::class,
-            CompetenciaSeeder::class
+            CompetenciaSeeder::class,
+            FormacaoSeeder::class
+            
         ];
 
         $this->call($seeders);
