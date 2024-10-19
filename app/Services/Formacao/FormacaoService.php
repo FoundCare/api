@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services\Formacao;
-
+use Illuminate\Support\Facades\DB;
 use App\Interfaces\Formacao\FormacaoServiceInterface;
 use App\Models\Formacao;
 
@@ -19,7 +19,7 @@ class FormacaoService implements FormacaoServiceInterface
     
     public function getByProfissional($id_profissional)
     {
-        return Formacao::where('id_profissional', $id_profissional)->get();
+        return DB::table('formacao')->where('id_profissional', $id_profissional)->get();
     }
 
     public function store($data)
