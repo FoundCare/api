@@ -24,11 +24,13 @@ class EspecialidadeUpdateRequest extends EspecialidadeRequest
         $validations = parent::rules();
 
         $validations['especialidade'] = [
-            'nullable'
+            'nullable',
+            "string"
         ];
 
         $validations['comprovante'] = [
             'nullable',
+            "string",
             'unique:especialidades'
         ];
         return $validations;
