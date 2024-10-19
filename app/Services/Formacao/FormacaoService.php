@@ -3,6 +3,7 @@
 namespace App\Services\Formacao;
 
 use App\Interfaces\Formacao\FormacaoServiceInterface;
+use App\Models\Formacao;
 
 class FormacaoService implements FormacaoServiceInterface
 {
