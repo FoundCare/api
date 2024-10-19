@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Formacao;
 use App\Interfaces\Formacao\FormacaoServiceInterface;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class FormacaoController extends Controller
     // Listar todas as formações
     public function index()
     {
-        return $this->formacaoService->index();
+        return response()->json($this->formacaoService->index());
     }
 
     // Mostrar uma formação específica

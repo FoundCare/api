@@ -42,9 +42,9 @@ Route::patch('/profissionais/{profissional}/competencia/{competencia}', [Compete
 Route::delete('/profissionais/{profissional}/competencia/{competencia}', [CompetenciaController::class, 'destroy']);
 
 /** ROTAS DE FORMAÇÃO */
-Route::get('/formacoes/profissional/{id}', [FormacaoController::class, 'getByProfissional']);
-Route::get('/formacoes', [FormacaoController::class, 'index']);
-Route::get('/formacoes/{id}', [FormacaoController::class, 'show']);
-Route::post('/formacoes', [FormacaoController::class, 'store']);
-Route::put('/formacoes/{id}', [FormacaoController::class, 'update']);
-Route::delete('/formacoes/{id}', [FormacaoController::class, 'destroy']);
+Route::get('/formacao/profissional/{id}', [FormacaoController::class, 'getByProfissional']);
+Route::get('/formacao', [FormacaoController::class, 'index']);
+Route::get('/formacao/{id}', [FormacaoController::class, 'show']);
+Route::post('/formacao', [FormacaoController::class, 'store']);
+Route::put('/formacao/{id}', [FormacaoController::class, 'update']);
+Route::delete('/formacao/{id}', [FormacaoController::class, 'destroy']);
