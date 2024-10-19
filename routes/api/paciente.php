@@ -5,8 +5,10 @@
 use App\Http\Controllers\Api\PacienteController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/pacientes", [PacienteController::class, 'index']);
-Route::get("/pacientes/{id}", [PacienteController::class, 'show']);
-Route::post("/pacientes", [PacienteController::class, 'store']);
-Route::patch("/pacientes/{id}", [PacienteController::class, 'update']);
-Route::delete("/pacientes/{id}", [PacienteController::class, 'destroy']);
+Route::controller(PacienteController::class)->group(function () {
+    Route::get("/pacientes", 'index');
+    Route::get("/pacientes/{id}", 'show');
+    Route::post("/pacientes", 'store');
+    Route::patch("/pacientes/{id}", 'update');
+    Route::delete("/pacientes/{id}", 'destroy');
+});

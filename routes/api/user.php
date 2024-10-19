@@ -5,8 +5,10 @@
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::post('/users', [UserController::class, 'store']);
-Route::patch('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
+Route::controller(UserController::class)->group(function(){
+    Route::get('/users', 'index');
+    Route::get('/users/{id}', 'show');
+    Route::post('/users', 'store');
+    Route::patch('/users/{id}', 'update');
+    Route::delete('/users/{id}', 'destroy');
+});
