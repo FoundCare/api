@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
 Route::controller(ProfissionalController::class)->group(function () {
-    Route::get('/profissionais', [ProfissionalController::class, 'index']);
-    Route::get('/profissionais/{profissional}', [ProfissionalController::class, 'show']);
-    Route::post('/profissionais', [ProfissionalController::class, 'store']);
-    Route::put('/profissionais/{profissional}', [ProfissionalController::class, 'update']);
-    Route::delete('/profissionais/{profissional}', [ProfissionalController::class, 'destroy']);
+    Route::get('/profissionais', 'index');
+    Route::get('/profissionais/{profissional}', 'show');
+    Route::post('/profissionais', 'store');
+    Route::put('/profissionais/{profissional}', 'update');
+    Route::delete('/profissionais/{profissional}', 'destroy');
 });
 
 foreach (File::allFiles(__DIR__ . '/profissional') as $route_file) {
