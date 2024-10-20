@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\UserEditRequest;
-use App\Http\Requests\Endereco\EnderecoRequest;
-use App\Http\Requests\Api\UserStoreRequest;
-use App\Http\Requests\Contato\ContatoEditRequest;
-use App\Http\Requests\Contato\ContatoRequest;
-use App\Http\Requests\Endereco\EnderecoUpdateRequest;
+use App\Http\Requests\Api\Contato\ContatoEditRequest;
+use App\Http\Requests\Api\Contato\ContatoRequest;
+use App\Http\Requests\Api\Endereco\EnderecoRequest;
+use App\Http\Requests\Api\Endereco\EnderecoUpdateRequest;
+use App\Http\Requests\Api\User\UserEditRequest;
+use App\Http\Requests\Api\User\UserStoreRequest;
 use App\Interfaces\Paciente\PacienteServiceInterface;
 
 class PacienteController extends Controller
