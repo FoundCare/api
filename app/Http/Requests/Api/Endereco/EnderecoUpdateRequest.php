@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Endereco;
+namespace App\Http\Requests\Api\Endereco;
 
 //use Illuminate\Foundation\Http\FormRequest;
 
