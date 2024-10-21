@@ -15,6 +15,7 @@ class FormacaoService implements FormacaoServiceInterface
     public function show($id)
     {
         return Formacao::findOrFail($id);
+
     }
     
     public function getByProfissional($id_profissional)

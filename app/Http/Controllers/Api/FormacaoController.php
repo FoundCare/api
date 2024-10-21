@@ -33,6 +33,7 @@ class FormacaoController extends Controller
     public function show($id)
     {
         return $this->formacaoService->show($id);
+        return response()->json($formacao);
     }
 
     // Criar uma nova formação

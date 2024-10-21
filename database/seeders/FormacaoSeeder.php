@@ -9,7 +9,7 @@ class FormacaoSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('formacao')->insert([
+        DB::table('formacaos')->insert([
             'formacao' => 'Técnico em enfermagem',
             'descricao' => 'Fiz na instituição xxx, possuo muita experiência',
             'data_inicio' => '2018-01-15',

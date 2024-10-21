@@ -25,4 +25,7 @@ class Formacao extends Model
     {
         return $this->belongsTo(Profissional::class, 'id_profissional');
     }
+
+    //protected $table = 'formacao';//*
+
 }
