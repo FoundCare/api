@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Endereco;
+namespace App\Http\Requests\Api\Endereco;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,27 +43,32 @@ class EnderecoRequest extends FormRequest
         $validations = [
             "logradouro" => [
                 "required",
+                "string",
                 "min:15",
-                "max:250"
+                "max:250",
             ],
             "bairro" => [
                 "required",
+                "string",
                 "min:6",
-                "max: 45"
+                "max: 45",
             ],
             "cep" => [
                 "required",
+                "string",
                 "min:8",
-                "max: 8"
+                "max: 8",
             ],
             "cidade" => [
                 "required",
+                "string",
                 "min:6",
-                "max: 25"
+                "max: 25",
             ],
             "estado" => [
                 "required",
-                "max: 2"
+                "string",
+                "max: 2",
             ],
         ];
         

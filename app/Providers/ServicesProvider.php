@@ -44,6 +44,6 @@ class ServicesProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        
     }
 }

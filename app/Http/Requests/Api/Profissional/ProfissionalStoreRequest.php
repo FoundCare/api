@@ -43,11 +43,13 @@ class ProfissionalStoreRequest extends FormRequest
         return [
             "name" => [
                 'required',
+                "string",
                 'min:6',
                 'max:200'
             ],
             "cpf" => [
                 'required',
+                "string",
                 "unique:profissionais"
                 // adicionar validação CPF
             ],
@@ -62,40 +64,48 @@ class ProfissionalStoreRequest extends FormRequest
             ],
             "logradouro" => [
                 "required",
+                "string",
                 "min:6",
                 "max:38"
             ],
             "bairro" => [
                 "required",
+                "string",
                 "min:6",
                 "max:20"
             ],
             "cep" => [
                 "required",
+                "string",
                 "min:6",
                 "max:9"
             ],
             "telefone" => [
                 "nullable",
+                "string",
                 "max:10"
             ],
             "celular" => [
                 "required",
+                "string",
                 'unique:profissionais'
                 //adicionar validação celular
             ],
             "cnpj" => [
                 "required",
+                "string",
                 "unique:profissionais"
                 // adicionar validação
             ],
             "razao_social" => [
                 "required",
+                "string",
                 "min:10",
                 "max:200"
             ],
             "coren" => [
                 "required",
+                "string",
                 "unique:profissionais",
                 "min:5",
                 "max:10"

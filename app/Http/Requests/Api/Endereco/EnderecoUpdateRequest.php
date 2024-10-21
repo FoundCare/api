@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Endereco;
+namespace App\Http\Requests\Api\Endereco;
 
 //use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,28 +25,33 @@ class EnderecoUpdateRequest extends EnderecoRequest
 
         $rules['logradouro'] = [
             "nullable",
+            "string",
             "min:15",
             "max:250"
         ];
         $rules['bairro'] = [
             "nullable",
+            "string",
             "min:6",
             "max: 45"
         ];
         
         $rules["cep"] = [
             "nullable",
+            "string",
             "min:8",
             "max: 8"
         ];
         $rules["cidade"] = [
             "nullable",
+            "string",
             "min:6",
             "max: 25"
         ];
         
         $rules["estado"] = [
             "nullable",
+            "string",
             "min: 2",
             "max: 2"
         ];
