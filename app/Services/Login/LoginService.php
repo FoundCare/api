@@ -2,6 +2,8 @@
 
 namespace App\Services\Login;
 
+use App\Models\Paciente;
+use App\Models\Profissional;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -9,7 +11,12 @@ class LoginService
 {
     public function logout($user)
     {
-        dd($user->tokens());
+        $user->token()->revoke();
+        $body = [
+            "status" => true,
+            "message" => "Até a próxima!"
+        ];
+        return response()->json($body, 200);
     }
 
     public function login($data)
@@ -17,9 +24,9 @@ class LoginService
         $email = $data['email'];
         $senha = $data['senha'];
 
-        $user = User::where('email', $email)->first();
+        $user = $this->getUserByEmail($email);
         
-        if(is_null($user) || !$this->checkPassword($senha, $user->senha)){
+        if(!$this->checkPassword($senha, $user->senha)){
             $body = [
                 "status" => false,
                 "message" => [
@@ -37,22 +44,58 @@ class LoginService
             return response()->json($body, 400);
         }
         
-        $token = $user->createToken('Personal Access Token', ['*'])->accessToken;
-        
+        $tokenResponse = $this->generateUserToken($user);
+
+        if(is_array($tokenResponse)){
+            return response()->json($tokenResponse, 400);
+        }
+
         $body = [
             "status" => true,
             "message" => "Login realizado com sucesso! Por favor copie o token para futuras requisições!",
-            "token" => $token
+            "token" => $tokenResponse
         ];
 
         return response()->json($body);
     }
 
+    private function getUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    private function generateUserToken($user)
+    {
+        $paciente = $this->verifyIfUserIsPaciente($user->id);
+        $profissional = $this->verifyIfUserIsProfissional($user->id);
+
+        if($paciente && $profissional){
+            return $user->createToken('Personal Access Token', ["scope_paciente", "scope_profissional"])->accessToken;
+        } else if($paciente){
+            return $user->createToken('Personal Access Token', ["scope_paciente"])->accessToken;
+        } else if($profissional){
+            return $user->createToken('Personal Access Token', ["scope_profissional"])->accessToken;
+        } else {
+            return [
+                "status" => false,
+                "message" => "Usuário não tem um perfil válido",
+            ];
+        }
+    }
+
+    private function verifyIfUserIsPaciente($userId)
+    {
+        return Paciente::where('id_usuario', $userId)->exists();
+    }
+
+    private function verifyIfUserIsProfissional($userId)
+    {
+        return Profissional::where('id_usuario', $userId)->exists();
+    }
+
     private function userHaveAToken($user)
     {
-        if($user->tokens()->where('revoked', false)->first()){
-            return true;
-        }
+        return $user->tokens()->where('revoked', false)->exists();
     }
 
     private function checkPassword($checkedPassword, $password)
