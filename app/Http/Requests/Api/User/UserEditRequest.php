@@ -24,6 +24,7 @@ class UserEditRequest extends UserStoreRequest
         $rules = parent::rules();
         $rules['name'] = [
             'nullable',
+            'string',
             'min:6',
             'max:20'
         ];
@@ -33,10 +34,12 @@ class UserEditRequest extends UserStoreRequest
         ];
         $rules['cpf'] = [
             'nullable',
+            'string',
             'max:12'
         ];
         $rules['password'] = [
             'nullable',
+            'string',
             'min:6',
             'max:20'
         ];

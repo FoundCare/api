@@ -42,7 +42,8 @@ class EspecialidadeRequest extends FormRequest
         $validations = [
             "comprovante" => [
                 'required',
-                'unique:especialidades'
+                "string",
+                'unique:especialidades',
             ]
         ];
 

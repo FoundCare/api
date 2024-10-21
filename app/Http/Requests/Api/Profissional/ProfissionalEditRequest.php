@@ -23,11 +23,13 @@ class ProfissionalEditRequest extends ProfissionalStoreRequest
         
         $rules['name'] = [
             'nullable',
+            "string",
             'min:6',
             'max:200'
         ];
         $rules['cpf'] = [
             'nullable',
+            "string",
             "unique:profissionais",
             "min:6",
             "max:11"
@@ -45,37 +47,45 @@ class ProfissionalEditRequest extends ProfissionalStoreRequest
         ];
         $rules['logradouro'] = [
             'nullable',
+            "string",
             'min:6'
         ];
         $rules['bairro'] = [
             'nullable',
+            "string",
             'min:6'
         ];
         $rules['cep'] = [
             'nullable',
+            "string",
             'min:6'
         ];
         $rules['telefone'] = [
             'nullable',
+            "string",
             'min:6'
         ];
         $rules['celular'] = [
             'nullable',
+            "string",
             'unique:profissionais',
             'min:6'
         ];
         $rules['cnpj'] = [
             'nullable',
+            "string",
             'unique:profissionais',
             'min:6'
         ];
         $rules['razao_social'] = [
             'nullable',
+            "string",
             'unique:profissionais',
             'min:6'
         ];
         $rules['coren'] = [
             'nullable',
+            "string",
             'unique:profissionais',
             'min:6'
         ];

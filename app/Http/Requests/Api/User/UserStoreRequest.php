@@ -42,6 +42,7 @@ class UserStoreRequest extends FormRequest
         $validations = [
             "nome" => [
                 'required',
+                'string',
                 'min:6',
                 'max:250'
             ],
@@ -53,6 +54,7 @@ class UserStoreRequest extends FormRequest
             ],
             "senha" => [
                 'required',
+                'string',
                 'min:6',
                 'max:30'
             ],
@@ -62,6 +64,7 @@ class UserStoreRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
+                'string',
                 'unique:users',
                 'max:12'
             ]
