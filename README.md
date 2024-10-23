@@ -59,7 +59,28 @@ php artisan migrate
 php artisan db:seed
 ```
 #
-10° Seguido todos os passos acima, agora é hora de rodar o projeto
+10° É necessário que geremos uma PASSPORT_PRIVATE_KEY e PASSPORT_PUBLIC_KEY, para isso rodamos o comando abaixo
+```bash
+php artisan passport:key
+```
+### OBS: as chaves serão geradas na pasta /storage
+### <i>oauth-private.key</i>
+### <i>oauth-public.key</i>
+#
+11° Copie o valor de ambos os campos e cole no arquivo <b><i>.env</i></b>
+## PASSPORT_PRIVATE_KEY e PASSPORT_PUBLIC_KEY
+#
+12° Agora precisamos gerar um CLIENT_ID e um CLIENT_SECRET para que a API possa fazer as consultas nos endpoints
+```bash
+php artisan passport:client --personal
+```
+Retorno:
+```bash
+Client id ................................................... <client_id_secret>
+Client Secret ............................................... <client_id_secret>
+```
+#
+13° Seguido todos os passos acima, agora é hora de rodar o projeto
 ```
 php artisan serve
 ```
@@ -70,8 +91,35 @@ INFO  Server running on [http://127.0.0.1:8000].
 Press Ctrl+C to stop the server
 ```
 #
-#
-#
+No projeto a primeira rota a ser acessada é a rota /api/login
+### Essa rota é responsável pela distribuição do Token de acesso, para que o cliente possa utilizar outros recursos da API é necessário que esse token seja informado no header da requisição
+
+```bash
+axios.post('http://localhost/api/login', {
+  email: 'exemplo_email@gmail.com',
+  senha: '123456',
+}
+});
+```
+Retorno:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+}
+```
+### OBS: Esse token precisa ser informado no header de qualquer outra rota que o usuário precise acessar
+```bash
+axios.get('http://localhost/api/profissional', {
+  email: 'exemplo_email@gmail.com',
+  senha: '123456',
+}
+},
+header:{
+    Authorization: Bearer {token}
+}
+);
+```
+Nesse formato acima!
 
 ## Usuários - /api/users
 <strong>Responsável por realizar a criação, edição e deletar os usuários na plataforma</strong><br>
