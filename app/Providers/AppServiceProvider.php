@@ -26,8 +26,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Passport::enablePasswordGrant();
-        Passport::tokensExpireIn(Carbon::now()->addDays());
+        Passport::tokensCan([
+            'paciente' => "Access Paciente routes",
+            'profissional' => "Access Profissional Routes",
+            'admin' => "Access All Routes"
+        ]);
+        
+        Passport::tokensExpireIn(Carbon::now()->addDays(1));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
         Passport::personalAccessTokensExpireIn(Carbon::now()->addMonths(6));
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 
 Route::controller(ProfissionalController::class)->group(function () {
     Route::get('/profissionais', 'index');
-    Route::get('/profissionais/{profissional}', 'show')->middleware('auth:api');
+    Route::get('/profissionais/{profissional}', 'show')->middleware('auth:api', 'scope:profissional');
     Route::post('/profissionais', 'store')->middleware('auth:api');
     Route::put('/profissionais/{profissional}', 'update')->middleware('auth:api');
     Route::delete('/profissionais/{profissional}', 'destroy')->middleware('auth:api');

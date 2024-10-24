@@ -25,7 +25,7 @@ class LoginService
         $senha = $data['senha'];
 
         $user = $this->getUserByEmail($email);
-        
+
         if(!$this->checkPassword($senha, $user->senha)){
             $body = [
                 "status" => false,
@@ -35,7 +35,7 @@ class LoginService
             ];
             return response()->json($body, 401);
         }
-        
+
         if($this->userHaveAToken($user)){
             $body = [
                 "status" => false,
@@ -43,7 +43,7 @@ class LoginService
             ];
             return response()->json($body, 400);
         }
-        
+
         $tokenResponse = $this->generateUserToken($user);
 
         if(is_array($tokenResponse)){
@@ -70,11 +70,11 @@ class LoginService
         $profissional = $this->verifyIfUserIsProfissional($user->id);
 
         if($paciente && $profissional){
-            return $user->createToken('Personal Access Token', ["scope_paciente", "scope_profissional"])->accessToken;
+            return $user->createToken('Personal Access Token', ["paciente", "profissional"]);
         } else if($paciente){
-            return $user->createToken('Personal Access Token', ["scope_paciente"])->accessToken;
+            return $user->createToken('Personal Access Token', ["paciente"])->accessToken;
         } else if($profissional){
-            return $user->createToken('Personal Access Token', ["scope_profissional"])->accessToken;
+            return $user->createToken('Personal Access Token', ["profissional"])->accessToken;
         } else {
             return [
                 "status" => false,
