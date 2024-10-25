@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Endereco\EnderecoRequest;
-use App\Http\Requests\Endereco\EnderecoUpdateRequest;
+use App\Http\Requests\Api\Endereco\EnderecoRequest;
+use App\Http\Requests\Api\Endereco\EnderecoUpdateRequest;
 use App\Http\Resources\EnderecoResource;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
 use Illuminate\Http\Request;
