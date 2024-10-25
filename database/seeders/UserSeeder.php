@@ -69,13 +69,13 @@ class UserSeeder extends Seeder
                 "id_contato" => 5
             ]);
         }
-        if(!User::where('email', 'j.vitor.moura.37@gmail.com')->first()){
+        if(!User::where('email', 'italo.etec.sp@gmail.com')->first()){
             User::create([
                 "nome" => "Italo",
-                "email" => "j.vitor.moura.37@gmail.com",
+                "email" => "italo.etec.sp@gmail.com",
                 'data_nasc' => "1999-11-29",
                 "cpf" => "47608923895",
-                "id_endereco" => 5,
+                "id_endereco" => 6,
                 'senha' => Hash::make('123456', ['rounds' => 12]),
                 "id_contato" => 6
             ]);
