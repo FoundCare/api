@@ -4,24 +4,24 @@ use App\Models\Anuncio;
 
 class AnuncioService
 {
-    public function listarAnuncios()
+    public function index()
     {
-        return Anuncio::with('profissional', 'historicoDeProfissionais')->get();
+        return Anuncio::with('profissional', 'historicoDeProfissionals')->get();
     }
 
-    public function criarAnuncio(array $dados)
+    public function store(array $dados)
     {
         return Anuncio::create($dados);
     }
 
-    public function atualizarAnuncio($id, array $dados)
+    public function update($id, array $dados)
     {
         $anuncio = Anuncio::findOrFail($id);
         $anuncio->update($dados);
         return $anuncio;
     }
 
-    public function deletarAnuncio($id)
+    public function destroy($id)
     {
         $anuncio = Anuncio::findOrFail($id);
         $anuncio->delete();

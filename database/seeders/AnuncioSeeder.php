@@ -10,14 +10,14 @@ class AnuncioSeeder extends Seeder
     public function run()
     {
         Anuncio::create([
-            'titulo' => 'Aulas de Inglês',
-            'descricao' => 'Aulas particulares de inglês para iniciantes e avançados.',
+            'titulo' => 'Cuidador de idosos',
+            'descricao' => 'Possuo experiência em cuidar de idosos desde 2003, possuo formação adequada e empatia!',
             'id_profissional' => 1,
         ]);
 
         Anuncio::create([
-            'titulo' => 'Serviço de Design Gráfico',
-            'descricao' => 'Criação de logotipos, banners e material publicitário.',
+            'titulo' => 'Serviço de HomeCare',
+            'descricao' => 'Tenho facilidae em tratamento terapêutico para crianças atípicas',
             'id_profissional' => 2,
         ]);
     }

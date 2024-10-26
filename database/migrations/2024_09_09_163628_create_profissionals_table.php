@@ -14,13 +14,14 @@ return new class extends Migration
     {
         Schema::create('profissionais', function (Blueprint $table) {
             $table->id('id_profissional');
-            $table->integer('id_usuario')->unsigned()->unique();
+            $table->unsignedBigInteger('id_usuario')->unique(); // Certifique-se de usar 'unsignedBigInteger'
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->string('cnpj');
             $table->string('razao_social');
             $table->string('coren')->unique();
             $table->timestamps();
         });
+        
     }
 
     /**
