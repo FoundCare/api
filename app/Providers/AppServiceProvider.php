@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             'profissional' => "Access Profissional Routes",
             'admin' => "Access All Routes"
         ]);
-        
+
         Passport::tokensExpireIn(Carbon::now()->addDays(1));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
         Passport::personalAccessTokensExpireIn(Carbon::now()->addMonths(6));
