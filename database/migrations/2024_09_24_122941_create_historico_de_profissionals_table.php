@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historico_de_profissionais', function (Blueprint $table) {
+        Schema::create('historico_de_profissionals', function (Blueprint $table) {
             $table->id("id_historico_profissional");
             $table->foreignIdFOr(Profissional::class,"id_profissional");
             $table->date("data_contato")->default(Carbon::now()->toDateString());

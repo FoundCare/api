@@ -53,7 +53,7 @@ class Profissional extends Model
         return $this->hasMany(Anuncio::class, 'id_profissional');
     }
 
-    public function historicoDeProfissionais(): HasMany
+    public function historicoDeProfissionals(): HasMany
     {
         return $this->hasMany(HistoricoDeProfissional::class, 'id_profissional');
     }
