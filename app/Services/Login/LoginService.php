@@ -45,7 +45,7 @@ class LoginService
         }
 
         $tokenResponse = $this->generateUserToken($user);
-        dd($tokenResponse);
+        dd($tokenResponse->accessToken, $tokenResponse->token['scopes'], $tokenResponse['user_id']);
 
         if(is_array($tokenResponse)){
             return response()->json($tokenResponse, 400);
@@ -55,6 +55,8 @@ class LoginService
             "status" => true,
             "message" => "Login realizado com sucesso! Por favor copie o token para futuras requisições!",
             "token" => [
+                "user_id" => $tokenResponse->token['user_id'],
+                "scopes" => $tokenResponse->token['scopes'],
                 "accessToken" => $tokenResponse->accessToken
             ]
         ];
