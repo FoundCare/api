@@ -25,7 +25,7 @@ class LoginService
         $senha = $data['senha'];
 
         $user = $this->getUserByEmail($email);
-        
+
         if(!$this->checkPassword($senha, $user->senha)){
             $body = [
                 "status" => false,
@@ -35,7 +35,7 @@ class LoginService
             ];
             return response()->json($body, 401);
         }
-        
+
         if($this->userHaveAToken($user)){
             $body = [
                 "status" => false,
@@ -43,8 +43,9 @@ class LoginService
             ];
             return response()->json($body, 400);
         }
-        
+
         $tokenResponse = $this->generateUserToken($user);
+        dd($tokenResponse);
 
         if(is_array($tokenResponse)){
             return response()->json($tokenResponse, 400);
@@ -53,7 +54,9 @@ class LoginService
         $body = [
             "status" => true,
             "message" => "Login realizado com sucesso! Por favor copie o token para futuras requisições!",
-            "token" => $tokenResponse
+            "token" => [
+                "accessToken" => $tokenResponse->accessToken
+            ]
         ];
 
         return response()->json($body);
@@ -70,17 +73,18 @@ class LoginService
         $profissional = $this->verifyIfUserIsProfissional($user->id);
 
         if($paciente && $profissional){
-            return $user->createToken('Personal Access Token', ["scope_paciente", "scope_profissional"])->accessToken;
+            $token = $user->createToken('Personal Access Token', ["paciente", "profissional"]);
         } else if($paciente){
-            return $user->createToken('Personal Access Token', ["scope_paciente"])->accessToken;
+            $token = $user->createToken('Personal Access Token', ["paciente"]);
         } else if($profissional){
-            return $user->createToken('Personal Access Token', ["scope_profissional"])->accessToken;
+            $token = $user->createToken('Personal Access Token', ["profissional"]);
         } else {
             return [
                 "status" => false,
                 "message" => "Usuário não tem um perfil válido",
             ];
         }
+        return $token;
     }
 
     private function verifyIfUserIsPaciente($userId)

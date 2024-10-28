@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Contato\ContatoRequest;
+use App\Http\Requests\Api\Contato\ContatoRequest;
 use App\Interfaces\Contato\ContatoServiceInterface;
 use Illuminate\Http\Request;
 
