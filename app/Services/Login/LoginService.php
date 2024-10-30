@@ -45,7 +45,6 @@ class LoginService
         }
 
         $tokenResponse = $this->generateUserToken($user);
-        dd($tokenResponse->accessToken, $tokenResponse->token['scopes'], $tokenResponse['user_id']);
 
         if(is_array($tokenResponse)){
             return response()->json($tokenResponse, 400);
