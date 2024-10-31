@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\UserEditRequest;
 use App\Http\Requests\Api\User\UserStoreRequest;
 use App\Http\Requests\Api\Contato\ContatoRequest;
-use App\Http\Requests\Endereco\EnderecoRequest;
-use App\Http\Requests\Endereco\EnderecoUpdateRequest;
+use App\Http\Requests\Api\Endereco\EnderecoRequest;
+use App\Http\Requests\Api\Endereco\EnderecoUpdateRequest;
 use App\Interfaces\User\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,6 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        return $this->userService->index();
     }
 
     /**

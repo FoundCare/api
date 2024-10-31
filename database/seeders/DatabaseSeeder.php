@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             PacienteSeeder::class,
             EspecialidadeSeeder::class,
             CompetenciaSeeder::class,
-            FormacaoSeeder::class
+            FormacaoSeeder::class,
+            AnuncioSeeder::class
             
         ];
 

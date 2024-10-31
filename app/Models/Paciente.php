@@ -37,7 +37,7 @@ class Paciente extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function historicoDeProfissionais(): HasMany
+    public function historicoDeProfissionals(): HasMany
     {
         return $this->hasMany(HistoricoDeProfissional::class, "id_historico_profissional");
     }

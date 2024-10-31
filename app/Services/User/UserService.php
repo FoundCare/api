@@ -24,8 +24,7 @@ class UserService implements UserServiceInterface
     }
     public function index()
     {
-        return 'FUNFOU';
-        // return User::all();
+        return response()->json(User::all());
     }
     public function show($id)
     {

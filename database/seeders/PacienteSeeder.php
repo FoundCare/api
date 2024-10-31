@@ -14,13 +14,13 @@ class PacienteSeeder extends Seeder
     public function run(): void
     {
         Paciente::create([
-            "id_usuario" => 1
+            "id_usuario" => 4
         ]);
         Paciente::create([
-            "id_usuario" => 2
+            "id_usuario" => 5
         ]);
         Paciente::create([
-            "id_usuario" => 3
+            "id_usuario" => 6
         ]);
     }
 }
