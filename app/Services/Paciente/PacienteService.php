@@ -42,10 +42,18 @@ class PacienteService implements PacienteServiceInterface
             $paciente = Paciente::join("users", "users.id", "=", "pacientes.id_usuario")
                         ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
                         ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
-                        ->findOrFail($id);
+                        ->where('id_usuario', $id)
+                        ->first();
+
+            if(empty($paciente)){
+                $data = [
+                    "error" => "Paciente não encontrado ou não cadastrado!"
+                ];
+                return response()->json(new PacienteResource($data), 404);
+            }
 
             return response()->json(new PacienteResource($paciente), 200);
-        } catch(ModelNotFoundException $e){
+        } catch(Exception $e){
             $data = [
                 "error" => $e->getMessage()
             ];
