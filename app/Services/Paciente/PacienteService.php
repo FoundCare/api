@@ -65,6 +65,8 @@ class PacienteService implements PacienteServiceInterface
             "id_usuario" => $user['id']
         ]);
 
+        //$token = $user->createToken('Personal Access Token', ["paciente"])->plainTextToken;
+
         DB::commit();
 
         $createdPaciente = Paciente::join("users", "users.id", "=", "pacientes.id_usuario")
@@ -72,7 +74,11 @@ class PacienteService implements PacienteServiceInterface
                         ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
                         ->findOrFail($paciente->id_paciente);
 
-        return response()->json(new PacienteResource($createdPaciente), 201);
+        /* Retorne o paciente e o token na resposta
+        return response()->json([
+            'paciente' => new PacienteResource($createdPaciente),
+            'token' => $token, // Inclua o token na resposta
+        ], 201);*/
 
         } catch(Exception $e){
             DB::rollback();
@@ -114,5 +120,5 @@ class PacienteService implements PacienteServiceInterface
         }
     }
 
-    
+
 }
