@@ -14,7 +14,7 @@ class Profissional extends Model
 
     /**
      * Tabela associada ao modelo
-     * 
+     *
      * @var string
      */
     protected $table = 'profissionais';
@@ -25,17 +25,9 @@ class Profissional extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'cpf',
-        'email',
-        'data_nasc',
-        'logradouro',
-        'bairro',
-        'cep',
-        'celular',
+        'id_usuario',
         'cnpj',
-        'razao_social',
-        'coren'
+        'razao_social'
     ];
 
     public function competencias()

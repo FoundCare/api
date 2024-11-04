@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Contato\ContatoRequest;
+use App\Http\Requests\Api\Endereco\EnderecoRequest;
 use App\Http\Requests\Api\Profissional\ProfissionalEditRequest;
-//use App\Http\Requests\Api\Profissional\ProfissionalStoreRequest;
-use App\Services\Profissional\ProfissionalService; 
+use App\Http\Requests\Api\Profissional\ProfissionalStoreRequest;
+use App\Http\Requests\Api\User\UserStoreRequest;
+use App\Interfaces\User\UserServiceInterface;
+use App\Services\Profissional\ProfissionalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -15,14 +19,16 @@ class ProfissionalController extends Controller
 {
     protected $profissionalService;
 
-    public function __construct(ProfissionalService $profissionalService)
-    {
+    public function __construct(
+        ProfissionalService $profissionalService,
+        private UserServiceInterface $userService
+    ) {
         $this->profissionalService = $profissionalService; // Injeção de dependência
     }
 
     public function index(): JsonResponse
-    {   
-        $profissionais = $this->profissionalService->index(); 
+    {
+        $profissionais = $this->profissionalService->index();
         $status = $profissionais->isEmpty() ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
 
         $body = [
@@ -37,7 +43,7 @@ class ProfissionalController extends Controller
     public function show(string $id): JsonResponse
     {
         try {
-            $profissional = $this->profissionalService->show($id); 
+            $profissional = $this->profissionalService->show($id);
 
             $body = [
                 'success' => true,
@@ -57,42 +63,46 @@ class ProfissionalController extends Controller
         return response()->json($body, $status);
     }
 
-    public function store(Request $request): JsonResponse
-{
-    $validatedData = $request->validate([
-        'id_usuario' => 'required|exists:users,id|unique:profissionais,id_usuario',
-        'cnpj' => 'nullable|string',
-        'razao_social' => 'nullable|string',
-        'coren' => 'required|string|unique:profissionais,coren',
-    ], [
-        'id_usuario.required' => 'O campo id_usuario é obrigatório.',
-        'id_usuario.exists' => 'O usuário não existe.',
-        'id_usuario.unique' => 'Este usuário já está registrado como profissional.',
-        'coren.required' => 'O campo coren é obrigatório.',
-        'coren.unique' => 'Este coren já está em uso.',
-    ]);
+    public function store(UserStoreRequest $request, ContatoRequest $contatoRequest, EnderecoRequest $enderecoRequest, ProfissionalStoreRequest $profissionalRequest): JsonResponse
+    {
 
-    try {
-        $profissional = $this->profissionalService->store($validatedData); 
+        $user = $this->userService->store($request);
+        try {
 
-        return response()->json([
-            'success' => true,
-            'message' => "Profissional cadastrado com sucesso!",
-            'data' => $profissional
-        ], Response::HTTP_CREATED);
-    } catch (Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => "Erro ao cadastrar o profissional.",
-            'error' => $e->getMessage()
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            $data = [
+                "id" => $user["id"],
+                "cnpj" => $request->get('cnpj'),
+                "razao_social" => $request->get("razao_social")
+            ];
+
+            $this->profissionalService->store($data);
+
+            $token = $user->createToken("Personal Access Token", ['profissional']);
+
+            $data = [
+                'success' => true,
+                'message' => "Profissional cadastrado com sucesso!",
+                'data' => [
+                    "user_id" => $token->token->user_id,
+                    "accessToken" => $token->accessToken,
+                    "scopes" => $token->token['scopes']
+                ]
+            ];
+
+            return response()->json($data, Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "Erro ao cadastrar o profissional.",
+                'error' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-}
 
     public function update(ProfissionalEditRequest $request, string $id): JsonResponse
     {
         try {
-            $profissional = $this->profissionalService->update($request, $id); 
+            $profissional = $this->profissionalService->update($request, $id);
 
             $body = [
                 'success' => true,
@@ -115,7 +125,7 @@ class ProfissionalController extends Controller
     public function destroy(string $id): JsonResponse
     {
         try {
-            $this->profissionalService->destroy($id); 
+            $this->profissionalService->destroy($id);
 
             $body = [
                 'success' => true,
