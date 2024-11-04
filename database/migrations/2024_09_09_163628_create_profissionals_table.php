@@ -18,10 +18,9 @@ return new class extends Migration
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->string('cnpj');
             $table->string('razao_social');
-            $table->string('coren')->unique();
             $table->timestamps();
         });
-        
+
     }
 
     /**
