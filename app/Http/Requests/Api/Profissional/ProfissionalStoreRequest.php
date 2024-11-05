@@ -18,7 +18,7 @@ class ProfissionalStoreRequest extends FormRequest
 
     /**
      * Este método é responsável por manipular as falhas de validação e retorna uma resposta JSON com os erros de validação
-     * 
+     *
      * @param Illuminate\Contracts\Validation\Validator;
      * @throws Illuminate\Http\Exceptions\HttpResponseException;;
      * @return status 422 - "Unprocessable Entity"
@@ -37,60 +37,10 @@ class ProfissionalStoreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    
+
     public function rules(): array
     {
         return [
-            "name" => [
-                'required',
-                "string",
-                'min:6',
-                'max:200'
-            ],
-            "cpf" => [
-                'required',
-                "string",
-                "unique:profissionais"
-                // adicionar validação CPF
-            ],
-            "email" => [
-                "required",
-                "email",
-                "unique:profissionais"
-            ],
-            "data_nasc" => [
-                "required",
-                "date_format:Y-m-d"
-            ],
-            "logradouro" => [
-                "required",
-                "string",
-                "min:6",
-                "max:38"
-            ],
-            "bairro" => [
-                "required",
-                "string",
-                "min:6",
-                "max:20"
-            ],
-            "cep" => [
-                "required",
-                "string",
-                "min:6",
-                "max:9"
-            ],
-            "telefone" => [
-                "nullable",
-                "string",
-                "max:10"
-            ],
-            "celular" => [
-                "required",
-                "string",
-                'unique:profissionais'
-                //adicionar validação celular
-            ],
             "cnpj" => [
                 "required",
                 "string",
@@ -102,13 +52,6 @@ class ProfissionalStoreRequest extends FormRequest
                 "string",
                 "min:10",
                 "max:200"
-            ],
-            "coren" => [
-                "required",
-                "string",
-                "unique:profissionais",
-                "min:5",
-                "max:10"
             ]
         ];
     }
@@ -116,7 +59,7 @@ class ProfissionalStoreRequest extends FormRequest
     /**
      * Este método está responsável por enviar as mensagens de erro personalizadas
      * para os solicitantes da API.
-     * 
+     *
      * @return array<string>;
      */
     public function messages(): array

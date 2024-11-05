@@ -21,10 +21,9 @@ class ProfissionalService implements ProfissionalServiceInterface
     public function store($data)
 {
     return Profissional::create([
-        'id_usuario' => $data['id_usuario'],
+        'id_usuario' => $data["id"],
         'cnpj' => $data['cnpj'],
-        'razao_social' => $data['razao_social'],
-        'coren' => $data['coren']
+        'razao_social' => $data['razao_social']
     ]);
 }
 
