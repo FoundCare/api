@@ -32,7 +32,7 @@ class ProfissionalController extends Controller
         $status = $profissionais->isEmpty() ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
 
         $body = [
-            'success' => !$profissionais->isEmpty(),
+            'status' => !$profissionais->isEmpty(),
             'message' => $profissionais->isEmpty() ? "Nenhum usuário encontrado" : "Usuários encontrados",
             'data' => $profissionais
         ];
@@ -80,7 +80,7 @@ class ProfissionalController extends Controller
             $token = $user->createToken("Personal Access Token", ['profissional']);
 
             $data = [
-                'success' => true,
+                'status' => true,
                 'message' => "Profissional cadastrado com sucesso!",
                 'data' => [
                     "user_id" => $token->token->user_id,
@@ -92,7 +92,7 @@ class ProfissionalController extends Controller
             return response()->json($data, Response::HTTP_CREATED);
         } catch (Exception $e) {
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => "Erro ao cadastrar o profissional.",
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -105,14 +105,14 @@ class ProfissionalController extends Controller
             $profissional = $this->profissionalService->update($request, $id);
 
             $body = [
-                'success' => true,
+                'status' => true,
                 'message' => "Usuário editado com sucesso!",
                 'data' => $profissional
             ];
             $status = Response::HTTP_OK;
         } catch (Exception $e) {
             $body = [
-                'success' => false,
+                'status' => false,
                 'message' => "Usuário não editado",
                 'error' => $e->getMessage()
             ];
@@ -128,13 +128,13 @@ class ProfissionalController extends Controller
             $this->profissionalService->destroy($id);
 
             $body = [
-                'success' => true,
+                'status' => true,
                 'message' => "Profissional deletado com sucesso!",
             ];
             $status = Response::HTTP_OK;
         } catch (Exception $e) {
             $body = [
-                'success' => false,
+                'status' => false,
                 'message' => "Erro ao deletar profissional!",
                 'error' => $e->getMessage()
             ];
