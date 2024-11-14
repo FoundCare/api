@@ -6,7 +6,6 @@ use App\Models\Anuncio;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Anuncio\AnuncioRequest;
 
-
 class AnuncioController extends Controller
 {
     public function index()
@@ -23,13 +22,12 @@ class AnuncioController extends Controller
         }
 
         return response()->json($anuncios, 200);
-
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'titulo' => 'required|string|max:255',
+            'servicos' => 'required|string|max:255',
             'descricao' => 'required|string',
             'id_profissional' => 'required|exists:profissionais,id',
         ]);
@@ -46,26 +44,22 @@ class AnuncioController extends Controller
     }
 
     public function update(AnuncioRequest $request, $id)
-{
+    {
+        $anuncio = Anuncio::findOrFail($id);
 
-    $anuncio = Anuncio::findOrFail($id);
+        $data = [
+            'servicos' => $request->input('servicos'),
+            'descricao' => $request->input('descricao'),
+            'id_profissional' => $request->input('id_profissional')
+        ];
 
+        $anuncio->update($data);
 
-    $data=[
-        'titulo' => $request->input('titulo'),
-        'descricao' => $request->input('descricao'),
-        'id_profissional' => $request->input('id_profissional')
-    ];
-
-    // Atualiza o anúncio com os dados validados
-    $anuncio->update($data);
-
-    return response()->json([
-        'message' => 'Anúncio atualizado com sucesso.',
-        'anuncio' => $anuncio
-    ], 200);
-}
-
+        return response()->json([
+            'message' => 'Anúncio atualizado com sucesso.',
+            'anuncio' => $anuncio
+        ], 200);
+    }
 
     public function destroy($id)
     {
