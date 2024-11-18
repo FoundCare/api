@@ -17,7 +17,6 @@ class Experiencia extends Model
         'data_inicio',
         'data_fim',
         'id_profissional',
-        'id_profissional',
         'descricao'
     ];
 }
