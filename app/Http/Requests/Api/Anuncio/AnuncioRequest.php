@@ -34,7 +34,7 @@ class AnuncioRequest extends FormRequest
     {
          // Valida os dados recebidos
     $validations =[
-        'titulo' => 'required|string|max:255',
+        'servicos' => 'required|string|max:255',
         'descricao' => 'required|string',
         'id_profissional' => 'required|integer|exists:profissionais,id_profissional'
     ];
@@ -47,9 +47,13 @@ class AnuncioRequest extends FormRequest
         $messages=[
             "required" => "O campo :attribute é obrigatório",
             "string" => "O campo :attribute precisa ser um texto",
-            "titulo.max" => "Esse campo :attribute atingiu o valor máximo de caractres",
+
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'descricao.string' => 'O campo descrição deve ser um texto.',
+
             "id_profissional.integer" => "O campo :attribute precisa ser um número",
-            "id_profissional.exists" => "O campo :attribute é inexistente"
+            "id_profissional.exists" => "O campo :attribute é inexistente",
+            'id_profissional.required' => 'O campo ID do profissional é obrigatório.'
         ];
 
         return $messages;

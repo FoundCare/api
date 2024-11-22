@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use App\Models\Profissional;
 
 class ProfissionalController extends Controller
 {
@@ -43,8 +44,11 @@ class ProfissionalController extends Controller
     public function show(string $id): JsonResponse
     {
         try {
-            $profissional = $this->profissionalService->show($id);
-
+            $profissionais = Profissional::join('users', 'users.id', '=', 'profissionais.id_usuario')
+                                        ->where('users.id', $id)
+                                        ->first();
+            //$profissional = $this->prof issionalService->show($id);
+            dd($profissionais);
             $body = [
                 'success' => true,
                 'message' => "Profissional encontrado!",

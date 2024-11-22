@@ -24,8 +24,11 @@ class AnuncioController extends Controller
         return response()->json($anuncios, 200);
     }
 
-    public function store(Request $request)
+    public function store(AnuncioRequest $request)
+
     {
+
+        \Log::info('Dados recebidos no store:', $request->all());
         $validatedData = $request->validate([
             'servicos' => 'required|string|max:255',
             'descricao' => 'required|string',
@@ -34,7 +37,11 @@ class AnuncioController extends Controller
 
         $anuncio = Anuncio::create($validatedData);
 
-        return response()->json($anuncio, 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Anúncio criado com sucesso!',
+            'data' => $anuncio,
+        ], 201);
     }
 
     public function show($id)
