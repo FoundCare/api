@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Anuncio;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Anuncio\AnuncioRequest;
+use App\Services\Anuncio\AnuncioService;
 
 class AnuncioController extends Controller
 {
+    public function __construct(
+        private AnuncioService $anuncioService
+    )
+    {
+    }
+    
     public function index()
     {
-        return Anuncio::with('profissional', 'historicoDeProfissionals')->get();
+        return $this->anuncioService->index();
+        
     }
 
     public function getByProfissional($id_profissional)
