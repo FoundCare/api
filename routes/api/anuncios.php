@@ -5,7 +5,6 @@ use App\Http\Controllers\AnuncioController;
 
 Route::controller(AnuncioController::class)->group(function (){
 
-
     Route::get('anuncios', 'index');
     Route::get('anuncios/profissional/{id_profissional}', [AnuncioController::class, 'getByProfissional']);
     Route::get('anuncios/{id_anuncios}', [AnuncioController::class, 'show']); // Buscar por ID
