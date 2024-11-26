@@ -28,11 +28,11 @@ class AnuncioController extends Controller
 
     {
 
-        \Log::info('Dados recebidos no store:', $request->all());
+        Log::info('Dados recebidos no store:', $request->all());
         $validatedData = $request->validate([
             'servicos' => 'required|string|max:255',
             'descricao' => 'required|string',
-            'id_profissional' => 'required|exists:profissionais,id',
+            'id_profissional' => 'required|exists:profissionais,id_profissional',
         ]);
 
         $anuncio = Anuncio::create($validatedData);
