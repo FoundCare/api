@@ -20,7 +20,7 @@ class AnuncioRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'status' => false,
-            'erros' => $validator->errors()
+            'errors' => $validator->errors()
 
         ],422));
     }

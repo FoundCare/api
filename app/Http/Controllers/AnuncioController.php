@@ -6,6 +6,7 @@ use App\Models\Anuncio;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Anuncio\AnuncioRequest;
 use App\Services\Anuncio\AnuncioService;
+use Illuminate\Support\Facades\Log;
 
 class AnuncioController extends Controller
 {
@@ -14,11 +15,11 @@ class AnuncioController extends Controller
     )
     {
     }
-    
+
     public function index()
     {
         return $this->anuncioService->index();
-        
+
     }
 
     public function getByProfissional($id_profissional)
@@ -33,9 +34,7 @@ class AnuncioController extends Controller
     }
 
     public function store(AnuncioRequest $request)
-
     {
-
         Log::info('Dados recebidos no store:', $request->all());
         $validatedData = $request->validate([
             'servicos' => 'required|string|max:255',
@@ -43,14 +42,22 @@ class AnuncioController extends Controller
             'id_profissional' => 'required|exists:profissionais,id_profissional',
         ]);
 
-        $anuncio = Anuncio::create($validatedData);
+        // Atribuir os dados validados à variável $anuncioData
+    $anuncioData = [
+        'servicos' => $validatedData['servicos'],
+        'descricao' => $validatedData['descricao'],
+        'id_profissional' => $validatedData['id_profissional'],
+    ];
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Anúncio criado com sucesso!',
-            'data' => $anuncio,
-        ], 201);
-    }
+    // Criar o anúncio
+    $anuncio = Anuncio::create($anuncioData);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Anúncio criado com sucesso!',
+        'data' => $anuncio,
+    ], 201);
+}
 
     public function show($id)
     {
