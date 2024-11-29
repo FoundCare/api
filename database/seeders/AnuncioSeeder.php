@@ -20,5 +20,11 @@ class AnuncioSeeder extends Seeder
             'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas',
             'id_profissional' => 2,
         ]);
+
+        Anuncio::create([
+            'servicos' => 'Serviço de Vacinas', // Alterado de 'titulo' para 'servicos'
+            'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas e neurodivergentes',
+            'id_profissional' => 3,
+        ]);
     }
 }
