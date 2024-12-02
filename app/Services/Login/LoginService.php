@@ -49,7 +49,6 @@ class LoginService
         if(is_array($tokenResponse)){
             return response()->json($tokenResponse, 400);
         }
-
         $body = [
             "status" => true,
             "message" => "Login realizado com sucesso! Por favor copie o token para futuras requisições!",

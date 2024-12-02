@@ -10,15 +10,21 @@ class AnuncioSeeder extends Seeder
     public function run()
     {
         Anuncio::create([
-            'titulo' => 'Cuidador de idosos',
+            'servicos' => 'Cuidador de idosos', // Alterado de 'titulo' para 'servicos'
             'descricao' => 'Possuo experiência em cuidar de idosos desde 2003, possuo formação adequada e empatia!',
             'id_profissional' => 1,
         ]);
 
         Anuncio::create([
-            'titulo' => 'Serviço de HomeCare',
-            'descricao' => 'Tenho facilidae em tratamento terapêutico para crianças atípicas',
+            'servicos' => 'Serviço de HomeCare', // Alterado de 'titulo' para 'servicos'
+            'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas',
             'id_profissional' => 2,
+        ]);
+
+        Anuncio::create([
+            'servicos' => 'Serviço de Vacinas', // Alterado de 'titulo' para 'servicos'
+            'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas e neurodivergentes',
+            'id_profissional' => 3,
         ]);
     }
 }

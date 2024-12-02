@@ -6,6 +6,7 @@ use App\Interfaces\Competencia\CompetenciaInterfaceService;
 use App\Interfaces\Contato\ContatoServiceInterface;
 use App\Interfaces\Endereco\EnderecoServiceInterface;
 use App\Interfaces\Especialidade\EspecialidadeServiceInterface;
+use App\Interfaces\Experiencia\ExperienciaInterfaceService;
 use App\Interfaces\Formacao\FormacaoServiceInterface;
 use App\Interfaces\Paciente\PacienteServiceInterface;
 use App\Interfaces\Profissional\ProfissionalServiceInterface;
@@ -14,6 +15,7 @@ use App\Services\Competencia\CompetenciaService;
 use App\Services\Contato\ContatoService;
 use App\Services\Endereco\EnderecoService;
 use App\Services\Especialidade\EspecialidadeService;
+use App\Services\Experiencia\ExperienciaService;
 use App\Services\Formacao\FormacaoService;
 use App\Services\Paciente\PacienteService;
 use App\Services\Profissional\ProfissionalService;
@@ -36,6 +38,7 @@ class ServicesProvider extends ServiceProvider
         $this->app->bind(EspecialidadeServiceInterface::class, EspecialidadeService::class);
         $this->app->bind(CompetenciaInterfaceService::class, CompetenciaService::class);
         $this->app->bind(FormacaoServiceInterface::class, FormacaoService::class);
+        $this->app->bind(ExperienciaInterfaceService::class, ExperienciaService::class);
 
     }
 

@@ -12,8 +12,9 @@ class Anuncio extends Model
     use HasFactory;
 
     protected $fillable = [
-        "titulo",
-        "descricao"
+        'servicos',
+        'descricao',
+        'id_profissional'
 
     ];
     protected $table = 'anuncios';  // Nome da tabela
@@ -24,7 +25,7 @@ class Anuncio extends Model
 
     public function historicoDeProfissionals(): HasMany
     {
-        return $this->hasMany(HistoricoDeProfissional::class, "id_anuncio");
+        return $this->hasMany(HistoricoDeProfissional::class, 'id_anuncio');
     }
 
     public function profissional(): BelongsTo

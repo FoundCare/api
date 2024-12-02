@@ -14,21 +14,17 @@ class PacienteService implements PacienteServiceInterface
 {
     public function __construct(
         private UserServiceInterface $userService
-    )
-    {
-
-    }
+    ) {}
     public function index()
     {
-        try{
-            $pacientes = Paciente::
-                join("users", "users.id", "=", "pacientes.id_usuario")
+        try {
+            $pacientes = Paciente::join("users", "users.id", "=", "pacientes.id_usuario")
                 ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
                 ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
                 ->get();
 
             return response()->json(PacienteResource::collection($pacientes), 200);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $data = [
                 "error" => $e->getMessage()
             ];
@@ -38,14 +34,14 @@ class PacienteService implements PacienteServiceInterface
 
     public function show($id)
     {
-        try{
+        try {
             $paciente = Paciente::join("users", "users.id", "=", "pacientes.id_usuario")
-                        ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
-                        ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
-                        ->where('id_usuario', $id)
-                        ->first();
+                ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
+                ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
+                ->where('id_usuario', $id)
+                ->first();
 
-            if(empty($paciente)){
+            if (empty($paciente)) {
                 $data = [
                     "error" => "Paciente não encontrado ou não cadastrado!"
                 ];
@@ -53,7 +49,7 @@ class PacienteService implements PacienteServiceInterface
             }
 
             return response()->json(new PacienteResource($paciente), 200);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $data = [
                 "error" => $e->getMessage()
             ];
@@ -65,30 +61,31 @@ class PacienteService implements PacienteServiceInterface
     {
 
         $user = $this->userService->store($data);
-        try{
+        try {
 
-        DB::beginTransaction();
+            DB::beginTransaction();
 
-        $paciente = Paciente::create([
-            "id_usuario" => $user['id']
-        ]);
+            Paciente::create([
+                "id_usuario" => $user['id']
+            ]);
 
-        //$token = $user->createToken('Personal Access Token', ["paciente"])->plainTextToken;
+            $token = $user->createToken('Personal Access Token', ["paciente"]);
 
-        DB::commit();
+            DB::commit();
 
-        $createdPaciente = Paciente::join("users", "users.id", "=", "pacientes.id_usuario")
-                        ->join('enderecos', 'users.id_endereco', '=', 'enderecos.id_endereco')
-                        ->join('contatos', 'users.id_contato', '=', 'contatos.id_contato')
-                        ->findOrFail($paciente->id_paciente);
+            $data = [
+                'status' => true,
+                'message' => "Profissional cadastrado com sucesso!",
+                "token" => [
+                "user_id" => $token->token['user_id'],
+                "scopes" => $token->token['scopes'],
+                "accessToken" => $token->accessToken
+            ]
+            ];
 
-        /* Retorne o paciente e o token na resposta
-        return response()->json([
-            'paciente' => new PacienteResource($createdPaciente),
-            'token' => $token, // Inclua o token na resposta
-        ], 201);*/
+            return response()->json($data, 201);
 
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollback();
             $data = [
                 "error" => $e->getMessage()
@@ -105,7 +102,7 @@ class PacienteService implements PacienteServiceInterface
 
     public function destroy($id)
     {
-        try{
+        try {
             $paciente = Paciente::findOrFail($id);
             $this->userService->destroy($paciente->id_usuario);
             $paciente->delete();
@@ -114,19 +111,16 @@ class PacienteService implements PacienteServiceInterface
             ];
 
             return response()->json(new PacienteResource($data), 200);
-
-        } catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             $data = [
                 'error' => $e->getMessage()
             ];
             return response()->json(new PacienteResource($data), 404);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             $data = [
                 'error' => $e->getMessage()
             ];
             return response()->json(new PacienteResource($data), 404);
         }
     }
-
-
 }
