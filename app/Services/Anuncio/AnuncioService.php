@@ -15,8 +15,15 @@ class AnuncioService
             $anuncios = Anuncio::join('profissionais', 'profissionais.id_profissional', '=', 'anuncios.id_profissional')
                 ->join('competencias', 'competencias.id_profissional', '=', 'profissionais.id_profissional')
                 ->join('users', 'users.id', '=', 'profissionais.id_usuario')
-                ->get(['anuncios.servicos', 'anuncios.descricao', 'competencias.competencia', 'users.nome', 'anuncios.created_at', 'profissionais.id_profissional'])
-                ->groupBy('id_profissional');
+                ->get([
+                    'anuncios.id_anuncios',
+                    'anuncios.servicos', 
+                    'anuncios.descricao', 
+                    'competencias.competencia', 
+                    'users.nome', 
+                    'anuncios.created_at', 
+                    'profissionais.id_profissional'])
+                ->groupBy('id_anuncios');
 
             $result = $anuncios->map(function (Collection $items) {
                 $first = $items->first();
