@@ -14,22 +14,22 @@ class ContatoSeeder extends Seeder
     public function run(): void
     {
         Contato::create([
-            "celular" => "11988745701"
+            "celular" => "11988745706"
         ]);
         Contato::create([
-            "celular" => "11988745702"
+            "celular" => "11981745163"
         ]);
         Contato::create([
-            "celular" => "11988745703"
+            "celular" => "11957134523"
         ]);
         Contato::create([
-            "celular" => "11988745704"
+            "celular" => "11942823661"
         ]);
         Contato::create([
-            "celular" => "11988745705"
+            "celular" => "11969649063"
         ]);
         Contato::create([
-            "celular" => "11999999999"
+            "celular" => "11966691208"
         ]);
     }
 }
