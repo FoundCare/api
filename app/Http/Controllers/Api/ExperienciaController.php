@@ -8,6 +8,7 @@ use App\Http\Resources\Experiencia\ExperienciaResource;
 use App\Interfaces\Experiencia\ExperienciaInterfaceService;
 use App\Models\Experiencia;
 use App\Models\Profissional;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,11 +31,15 @@ class ExperienciaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ExperienciaRequest $request, Profissional $profissional)
+    public function store(ExperienciaRequest $request, string $id)
     {
         DB::beginTransaction();
 
         try {
+            $profissional = User::join('profissionais', 'profissionais.id_usuario', '=', 'users.id')
+                            ->where('users.id', $id)
+                            ->first();
+
             $experiencia = Experiencia::create([
                 'empresa' => $request->input('empresa'),
                 'cargo' => $request->input('cargo'),

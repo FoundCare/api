@@ -18,15 +18,14 @@ class AnuncioService
                 ->join('contatos', 'contatos.id_contato', '=', 'users.id_contato')
                 ->get([
                     'anuncios.id_anuncios',
-                    'anuncios.servicos', 
+                    'anuncios.servicos',
                     'anuncios.descricao',
-                    'contatos.celular', 
-                    'competencias.competencia', 
-                    'users.nome', 
-                    'anuncios.created_at', 
+                    'contatos.celular',
+                    'competencias.competencia',
+                    'users.nome',
+                    'anuncios.created_at',
                     'profissionais.id_profissional'])
                 ->groupBy('id_anuncios');
-            
 
             $result = $anuncios->map(function (Collection $items) {
                 $first = $items->first();
