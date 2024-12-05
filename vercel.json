@@ -6,12 +6,10 @@
             "runtime": "vercel-php@0.6.0"
         }
     },
-    "route": [
-        {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
-        }
-    ],
+    "routes": [{
+        "src": "/(.*)",
+        "dest": "/api/index.php"
+    }],
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
