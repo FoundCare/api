@@ -16,8 +16,6 @@
         "APP_ENV": "production",
         "APP_DEBUG": "true",
         "APP_URL": "foundcare.com.br",
-        "APP_KEY": "base64:/FCiexcMAK9ORZo3om22vyzdKiOZU5N3mZp+sLtpEUA=",
-
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
