@@ -18,7 +18,7 @@ class ExperienciaRequest extends FormRequest
 
      /**
      * Este método é responsável por manipular as falhas de validação e retorna uma resposta JSON com os erros de validação
-     * 
+     *
      * @param Illuminate\Contracts\Validation\Validator;
      * @throws Illuminate\Http\Exceptions\HttpResponseException;;
      * @return status 422 - "Unprocessable Entity"
@@ -61,7 +61,7 @@ class ExperienciaRequest extends FormRequest
                 'nullable',
                 'string'
             ]
-        ]; 
+        ];
 
         return $rules;
     }
@@ -71,7 +71,9 @@ class ExperienciaRequest extends FormRequest
         $messages = [
             "required" => "O campo :attribute é um campo obrigatório",
             "max" => "O campo :attribute atingiu seu limite de caracteres",
-            "unique" => ":attribute indisponível!"
+            "unique" => ":attribute indisponível!",
+            "date_format" => "Formato da data inválido!",
+            "string" => ":attribute aceita apenas texto"
         ];
 
         return $messages;
