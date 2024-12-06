@@ -31,5 +31,11 @@ class ContatoSeeder extends Seeder
         Contato::create([
             "celular" => "11966691208"
         ]);
+        Contato::create([
+            "celular" => "11968117648"
+        ]);
+        Contato::create([
+            "celular" => "11957988253"
+        ]);
     }
 }

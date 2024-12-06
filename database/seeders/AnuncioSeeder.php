@@ -26,5 +26,15 @@ class AnuncioSeeder extends Seeder
             'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas e neurodivergentes',
             'id_profissional' => 3,
         ]);
+        Anuncio::create([
+            'servicos' => 'Serviço de Vacinas', // Alterado de 'titulo' para 'servicos'
+            'descricao' => 'O Reiki é um fascinante sistema natural de harmonização e reposição energética que nos proporciona mais qualidade de vida, saúde e muita paz de espírito. Assim como outras terapias energéticas',
+            'id_profissional' => 4
+        ]);
+        Anuncio::create([
+            'servicos' => 'Serviço de Vacinas', // Alterado de 'titulo' para 'servicos'
+            'descricao' => 'Tenho facilidade em tratamento terapêutico para crianças atípicas e neurodivergentes',
+            'id_profissional' => 5,
+        ]);
     }
 }

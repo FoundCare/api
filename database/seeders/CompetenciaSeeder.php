@@ -41,5 +41,25 @@ class CompetenciaSeeder extends Seeder
             'id_profissional' => 3,
             'competencia' => 'Vacina'
         ]);
+
+        Competencias::create([
+            'id_profissional' => 4,
+            'competencia' => 'Massagens Viavidya'
+        ]);
+
+        Competencias::create([
+            'id_profissional' => 4,
+            'competencia' => 'Trabalho com autistas'
+        ]);
+        
+        Competencias::create([
+            'id_profissional' => 5,
+            'competencia' => 'Especialista em aplicação de Vacinas'
+        ]);
+
+        Competencias::create([
+            'id_profissional' => 5,
+            'competencia' => 'Aplicação de insulina'
+        ]);
     }
 }

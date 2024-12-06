@@ -55,6 +55,21 @@ class EnderecoSeeder extends Seeder
             "cidade" => "Diadema",
             "Estado" => "TT"
         ]);
+        Endereco::create([
+            "logradouro" => "Av Curio 149",
+            "bairro" => "Inamar",
+            'cep' => "09970382",
+            "cidade" => "Diadema",
+            "Estado" => "TT"
+        ]);
+        Endereco::create([
+            "logradouro" => "Av Santo Antonio 149",
+            "bairro" => "Inamar",
+            'cep' => "09970382",
+            "cidade" => "Diadema",
+            "Estado" => "TT"
+        ]);
+
 
     }
 }

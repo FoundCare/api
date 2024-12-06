@@ -31,5 +31,17 @@ class ProfissionalSeeder extends Seeder
                 "cnpj" => "88888888000188",
                 "razao_social" => "FOUNDCARE",
             ]);
+
+            Profissional::create([
+                "id_usuario" => 7,
+                "cnpj" => "05680926000199",
+                "razao_social" => "FOUNDCARE",
+            ]);
+
+            Profissional::create([
+                "id_usuario" => 8,
+                "cnpj" => "05682157000199",
+                "razao_social" => "FOUNDCARE",
+            ]);
     }
 }
